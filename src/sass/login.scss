@@ -1,0 +1,29 @@
+body{
+    background: url('./img/lg-bg.jpg') repeat-y center;
+    
+    min-width: 1200px;
+    min-height: 600px;
+}
+.login-form{
+    width: 400px;
+    height: 160px;
+    margin: 0 auto;
+    margin-top: 20%;
+    .ant-form-item{
+        position: relative;
+        i{
+            position: absolute;
+            top: 1px;
+            left: 10px;
+            color: #45a0ba;
+            z-index: 1;
+            font-size: 16px;
+        }
+        input{
+            padding-left: 27px;
+        }
+    }
+    button{
+        width: 400px;
+    }
+}

@@ -1,26 +1,45 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import {BrowserRouter,Route,Redirect,Switch} from 'react-router-dom'
+import axios from 'axios'
+import Notfound from './404'
+import LoginForm from '@js/admin/login'
+import Adminedit from '@js/admin/admin_edit'
+// 自定义路由组件
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      sessionStorage.getItem('logtoken')?(
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: "/admin_login/",
+            state: { from: props.location }
+          }}
+        />
+      )
+    }
+  />
+);
 class App extends Component {
+  // componentDidMount(){
+  //   console.log(1)
+  //   axios.post('http://192.168.40.180:51666/con/index.php/Index/index/leak_do_list')
+  //   .then(function(json){
+  //     console.log(json)
+  //   })
+  // }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path='/admin_login/' component={LoginForm} />
+          <Route exact path='/admin_edit/' component={Adminedit} />
+          {/* <PrivateRoute path='/admin_edit/' component={Adminedit}/> */}
+          <Route component={Notfound}/>
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
