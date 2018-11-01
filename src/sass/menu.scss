@@ -1,0 +1,44 @@
+
+.nav{
+    $bgword:#fff;
+    $ulword:#dadada;
+    $shencolor:#2a2a2a;
+    $qiancolor:#434343;
+    $activecolor:#005a82;
+    $height:50px;
+    height: $height;
+    background-color: $qiancolor;
+    .nav_mid{
+        width: 1200px;
+        margin: 0 auto;
+        height: $height;
+        span{
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            line-height: $height;
+            display: inline-block;
+            width: 200px;
+            height: $height;
+            background-color: $shencolor;
+            text-align: center
+        }
+        ul{
+            display: inline-block;
+            margin: 0;
+            color: $ulword;
+            margin-left: 50px;
+            vertical-align: top;
+            li{
+                display: inline-block;
+                height: $height;
+                line-height: $height;
+                text-align: center;
+                width: 120px;
+                cursor: pointer;
+            }:hover{
+                background-color: $activecolor;
+            }
+        }
+    }
+}

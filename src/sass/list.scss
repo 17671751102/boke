@@ -1,0 +1,15 @@
+.content{
+    min-height: calc(100% - 50px);
+    .list{
+        min-height: 600px;
+        width: 1200px;
+        margin: 0 auto;
+        .list_left{
+            width: 850px;
+
+        }
+        .list_right{
+            width: 350px;
+        }
+    }
+}

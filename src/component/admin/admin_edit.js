@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Button,message , Form, Input,Upload,Icon,Select,Radio,Tag, Tooltip } from 'antd';
 import { NavLink} from 'react-router-dom';
-import $ from 'jquery';
+// import $ from 'jquery';
 import { connect } from 'react-redux'
 // import RadioButton from 'antd/lib/radio/radioButton';
 // 富文本编辑器/资讯内容
@@ -126,31 +126,32 @@ class Addconsult_new extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err,values)=>{
             if(!err){
-                var content=$('.w-e-text').html()
+                var content=document.getElementsByClassName('w-e-text')[0].innerHTML
                 if(this.state.textstatus=='done'){
-                    $.ajax({
-                        type:'post',
-                        dataType:'json',
-                        data:{title:values.titles, desc:values.Desc,
-                        type:values.type,belong:values.belong,tag:this.state.tags.join(','),texttype:values.kkkk,link:values.link,
-                        content:content,pdf:this.state.Annex,pdfname:this.state.AttackmentName,number:this.props.match.params.number},
-                        url:'',
-                        success:function(json){
-                            if(json){
-                                if(json.status==1){
-                                    message.success(json.message)
-                                    setTimeout(() => {
-                                        window.location.href='/main/bulletin'
-                                    }, 2000);
-                                }else{
-                                    message.error(json.message)
-                                }
-                            }
-                        }.bind(this),
-                        err:function(){
+                    console.log(content)
+                    // $.ajax({
+                    //     type:'post',
+                    //     dataType:'json',
+                    //     data:{title:values.titles, desc:values.Desc,
+                    //     type:values.type,belong:values.belong,tag:this.state.tags.join(','),texttype:values.kkkk,link:values.link,
+                    //     content:content,pdf:this.state.Annex,pdfname:this.state.AttackmentName,number:this.props.match.params.number},
+                    //     url:'',
+                    //     success:function(json){
+                    //         if(json){
+                    //             if(json.status==1){
+                    //                 message.success(json.message)
+                    //                 setTimeout(() => {
+                    //                     window.location.href='/main/bulletin'
+                    //                 }, 2000);
+                    //             }else{
+                    //                 message.error(json.message)
+                    //             }
+                    //         }
+                    //     }.bind(this),
+                    //     err:function(){
     
-                        }
-                    })
+                    //     }
+                    // })
                 }else{message.error('文件还未上传完成')}
             }
         })
@@ -291,13 +292,6 @@ const mapStateToProps = (state) => {
       eventleakurl:state.eventleakurl
     }
 }
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onSwitchColor: (a) => {
-            dispatch({ type: 'CHANGE_COLOR', listreload: a })
-        }
-    }
-}
-Addconsult_new = connect(mapStateToProps,mapDispatchToProps)(Addconsult_new)
+Addconsult_new = connect(mapStateToProps)(Addconsult_new)
 const Adminedit = Form.create()(Addconsult_new);
 export default Adminedit
