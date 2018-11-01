@@ -10,7 +10,7 @@ body {
   box-sizing: border-box;
 }
 #root{
-  height: 100%;
+  min-height: 100%;
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -43,5 +43,13 @@ code {
 	height: 95% !important;
 }
 .w-e-text-container {
-	height: 100% !important;
+	height: calc(100% - 51px) !important;
+}
+textarea:focus{
+	outline: none;
+	border-color: #40a9ff;
+	box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+textarea:hover{
+	border-color: #40a9ff;
 }

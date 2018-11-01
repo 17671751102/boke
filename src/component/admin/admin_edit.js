@@ -26,7 +26,7 @@ class Addconsult_new extends React.Component {
             // // 返回名字
             // Annex:'',
             //咨询来源
-            origin:'3',
+            origin:'1',
         }
     }
     // // 文件上传
@@ -177,14 +177,14 @@ class Addconsult_new extends React.Component {
                         <Input autoComplete="off" placeholder="请输入资讯标题 0/50字"/>
                     )}
                 </FormItem>
-                <FormItem label="资讯简介" className='k_textRight'>
+                <FormItem label="资讯简介">
                 	{getFieldDecorator('Desc', {
                         rules: [{ message: '请输入资讯简介'},{max:200,message:'最多只能输入200字'}]
                     })(
-                        <textarea placeholder="   请输入资讯简介 0/200字"/>
+                        <textarea placeholder="请输入资讯简介 0/200字"/>
                     )}
                 </FormItem>
-                <FormItem label="资讯标签" className='k_textRight'>
+                <FormItem label="资讯标签">
                    {getFieldDecorator('lable', {
                         rules: [{ message: ''}],
                     })(
@@ -221,16 +221,18 @@ class Addconsult_new extends React.Component {
                         </div>
                     )}
                 </FormItem>
-                <FormItem className="collection-create-form_last-form-item" label="资讯来源" className='k_textRight'>
-                    {getFieldDecorator('kkkk')(
+                <FormItem className="collection-create-form_last-form-item" label="资讯来源">
+                    {getFieldDecorator('kkkk',{
+                        initialValue:'1'
+                    })(
                         <Radio.Group onChange={this.onChange1.bind(this)}>
-                            <Radio value='3' checked='true'>原创</Radio>
-                            <Radio value='4'>转载</Radio>
+                            <Radio value='1' checked='true'>原创</Radio>
+                            <Radio value='2'>转载</Radio>
                             {/* <Radio value='2'>上传PDF文件</Radio> */}
                         </Radio.Group>
                     )}
                 </FormItem>
-                {this.state.origin==4?
+                {this.state.origin==2?
                 <div>
                     <FormItem label="资讯链接" >
                         {getFieldDecorator('link', {
@@ -239,7 +241,7 @@ class Addconsult_new extends React.Component {
                             <Input autoComplete="off" placeholder="http://xxxx or https://xxx"/>
                         )}
                     </FormItem>
-                    <FormItem label="资讯内容" className='k_textRight'>
+                    <FormItem label="资讯内容">
                         {getFieldDecorator('title', {
                             rules: [{ message: '请输入资讯内容'}],
                         })(
@@ -247,7 +249,7 @@ class Addconsult_new extends React.Component {
                         )}
                     </FormItem>
                 </div>:''}
-                {this.state.origin==2?
+                {/* {this.state.origin==3?
                 <div>
                     <FormItem extra="支持pdf格式，大小在10M以内的文件" label="PDF文件上传">
                         {getFieldDecorator('Annex')(
@@ -261,10 +263,10 @@ class Addconsult_new extends React.Component {
                             </Upload>
                         )}
                     </FormItem>
-                </div>:''}
-                {this.state.origin==3?
+                </div>:''} */}
+                {this.state.origin==1?
                 <div>
-                    <FormItem label="资讯内容" className='k_textRight'>
+                    <FormItem label="资讯内容">
                         {getFieldDecorator('title', {
                             rules: [{ message: '请输入资讯内容'}],
                         })(
