@@ -1,0 +1,18 @@
+.content {
+  min-height: calc(100% - 50px);
+}
+
+.content .list {
+  min-height: 600px;
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.content .list .list_left {
+  width: 850px;
+}
+
+.content .list .list_right {
+  width: 350px;
+}
+/*# sourceMappingURL=list.css.map */

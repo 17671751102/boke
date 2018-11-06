@@ -35,6 +35,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
+          <Route exact path='/:type' component={Index} />
           <Route exact path='/' component={Index} />
           <Route path='/admin_login/' component={LoginForm} />
           <Route path='/admin_edit/' component={Adminedit} />

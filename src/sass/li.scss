@@ -1,0 +1,43 @@
+.myli{
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 35px 25px;
+    position: relative;
+    &>div{
+        float: left;
+    }
+    &::after{
+        content: '';
+        display: inline-block;
+        clear: both;
+        width: 1px;
+    }
+    .img{
+        width: 150px;
+        height: 120px;
+        background: url('./img/01.png') no-repeat center;
+        background-size: 100%;
+    }
+    .content{
+        width: calc(100% - 175px);
+        margin-left: 25px;
+    }
+    .time{
+        display: inline-block;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        background-color: red;
+        color: #fff;
+        &::before{
+            content: '';
+            width: 8px;
+            height: 8px;
+            position: absolute;
+            bottom: -8px;
+            left: 0px;
+            background: red
+        }
+    }
+}

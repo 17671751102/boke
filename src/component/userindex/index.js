@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink} from 'react-router-dom';
+import { BrowserRouter,Route,Redirect,Switch} from 'react-router-dom';
 import $ from 'jquery';
 import { connect } from 'react-redux'
 import List from '@js/userindex/components/list'
@@ -15,7 +15,10 @@ class Index extends React.Component {
         return(
             <div>
                 <Menu/>
-                <List/>
+                <Switch>
+                    <Route exact path='/:type' component={List} />
+                    <Route exact path='/' component={List} />
+                </Switch>
             </div>
         )
     }

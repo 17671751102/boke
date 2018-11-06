@@ -1,15 +1,25 @@
 .content{
     min-height: calc(100% - 50px);
     .list{
-        min-height: 600px;
         width: 1200px;
         margin: 0 auto;
+        &>div{
+            float: left;
+        }
+        &::after{
+            content: '';
+            display: inline-block;
+            clear: both;
+            width: 1px;
+        }
         .list_left{
-            width: 850px;
-
+            width: 825px;
+            margin-right: 25px;
         }
         .list_right{
             width: 350px;
+            height: 200px;
+            background: #fff;
         }
     }
 }

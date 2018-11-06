@@ -27,19 +27,19 @@ class NormalLoginForm extends React.Component {
                 //         zhangHao:values.username,
                 //         miMa:values.password
                 //     },
-                //     contentType:"application/x-www-form-urlencoded; charset=utf-8",
                 //     success: function (json) {
                 //         console.log(json)
                 //         if(json[0].status==1){
                 //             this.props.history.push("/admin_edit/")
                 //         }
-                //     }.bind(this)
+                //     }
                 // })
                 axios.post(this.props.baseurl+'Blog/usersLoad.form',qs.stringify({
                     zhangHao:values.username,
                     miMa:values.password
                 }))
                 .then((json)=>{
+                    console.log(json)
                     if(json.data[0].status==1){
                         this.props.history.push("/admin_edit/")
                     }
