@@ -31,14 +31,17 @@ class App extends Component {
   //     console.log(json)
   //   })
   // }
+  shouldComponentUpdate(nextProps, nextState){
+    console.log(nextProps, nextState)
+   
+}
   render() {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path='/:type' component={Index} />
-          <Route exact path='/' component={Index} />
           <Route path='/admin_login/' component={LoginForm} />
           <Route path='/admin_edit/' component={Adminedit} />
+          <Route path='/' component={Index} />
           {/* <PrivateRoute path='/admin_edit/' component={Adminedit}/> */}
           <Route component={Notfound}/>
         </Switch>

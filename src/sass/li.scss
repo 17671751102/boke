@@ -2,16 +2,14 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #fff;
-    padding: 35px 25px;
+    padding: 35px 25px 25px;
     position: relative;
-    &>div{
+    margin-bottom: 25px;
+    .img,.content{
         float: left;
     }
-    &::after{
-        content: '';
-        display: inline-block;
+    .both{
         clear: both;
-        width: 1px;
     }
     .img{
         width: 150px;
@@ -26,18 +24,19 @@
     .time{
         display: inline-block;
         position: absolute;
-        top: 0px;
-        left: 0px;
+        top: -16px;
+        left: 20px;
         background-color: red;
         color: #fff;
+        padding: 5px 20px;
         &::before{
             content: '';
-            width: 8px;
-            height: 8px;
             position: absolute;
-            bottom: -8px;
-            left: 0px;
-            background: red
+            top: 0px;
+            left: -10px;
+            border: 5px solid red;
+            border-color: transparent red red transparent;
+            border-width: 8px 5px;
         }
     }
 }
