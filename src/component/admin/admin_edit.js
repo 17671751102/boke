@@ -1,11 +1,13 @@
 import React from 'react';
 import { Modal, Button,message , Form, Input,Upload,Icon,Select,Radio,Tag, Tooltip } from 'antd';
 import { NavLink} from 'react-router-dom';
-// import $ from 'jquery';
 import { connect } from 'react-redux'
 // import RadioButton from 'antd/lib/radio/radioButton';
 // 富文本编辑器/资讯内容
 import Wangeditor from '@js/wangedit/wangedit';
+import axios from 'axios'
+// 用来转换axios参数格式与ajax格式一致
+import qs from 'qs'
 import '@css/admin_edit.scss'
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -117,6 +119,7 @@ class Addconsult_new extends React.Component {
           tags,
           inputVisible: false,
           inputValue: '',
+
         });
     }
     
@@ -128,30 +131,22 @@ class Addconsult_new extends React.Component {
             if(!err){
                 var content=document.getElementsByClassName('w-e-text')[0].innerHTML
                 if(this.state.textstatus=='done'){
-                    console.log(content)
-                    // $.ajax({
-                    //     type:'post',
-                    //     dataType:'json',
-                    //     data:{title:values.titles, desc:values.Desc,
-                    //     type:values.type,belong:values.belong,tag:this.state.tags.join(','),texttype:values.kkkk,link:values.link,
-                    //     content:content,pdf:this.state.Annex,pdfname:this.state.AttackmentName,number:this.props.match.params.number},
-                    //     url:'',
-                    //     success:function(json){
-                    //         if(json){
-                    //             if(json.status==1){
-                    //                 message.success(json.message)
-                    //                 setTimeout(() => {
-                    //                     window.location.href='/main/bulletin'
-                    //                 }, 2000);
-                    //             }else{
-                    //                 message.error(json.message)
-                    //             }
-                    //         }
-                    //     }.bind(this),
-                    //     err:function(){
-    
-                    //     }
-                    // })
+                    axios.post(this.props.baseurl+'Blog/insertWenZhang.form',qs.stringify({
+                        wZTitle:values.titles,
+                        WZJJ:values.Desc,
+                        biaoQian:this.state.tags.join(","),
+                        YC:values.kkkk,
+                        wZurl:values.link,
+                        wZText:content
+                    }))
+                    .then((json)=>{
+                        if(json.data[0].status==1){
+                            message.success(json.data[0].message)
+                            this.props.history.push('/')
+                        }else{
+                            message.error(json.data[0].message)
+                        }
+                    })
                 }else{message.error('文件还未上传完成')}
             }
         })
@@ -288,8 +283,7 @@ class Addconsult_new extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-      baseurl: state.baseurl,
-      eventleakurl:state.eventleakurl
+      baseurl: state.baseurl
     }
 }
 Addconsult_new = connect(mapStateToProps)(Addconsult_new)

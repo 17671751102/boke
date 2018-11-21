@@ -24,25 +24,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   />
 );
 class App extends Component {
-  // componentDidMount(){
-  //   console.log(1)
-  //   axios.post('http://192.168.40.180:51666/con/index.php/Index/index/leak_do_list')
-  //   .then(function(json){
-  //     console.log(json)
-  //   })
-  // }
-  shouldComponentUpdate(nextProps, nextState){
-    console.log(nextProps, nextState)
-   
-}
   render() {
     return (
       <BrowserRouter>
         <Switch>
+          <PrivateRoute path='/admin_edit/' component={Adminedit}/>
           <Route path='/admin_login/' component={LoginForm} />
-          <Route path='/admin_edit/' component={Adminedit} />
           <Route path='/' component={Index} />
-          {/* <PrivateRoute path='/admin_edit/' component={Adminedit}/> */}
           <Route component={Notfound}/>
         </Switch>
       </BrowserRouter>

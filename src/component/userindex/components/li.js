@@ -4,9 +4,10 @@ import '@css/li.scss'
 import src from '@css/img/01.png'
 class MyLi extends React.Component {
     render(){
+        var date=this.props.value.fBTime
         return(
             <div className="myli">
-                <span className="time">2018-11-11</span>
+                <span className="time">{new Date(date.time).getFullYear()+'-'+(date.month+1)+'-'+date.date}</span>
                 <div className="img">
                     <img src={src} alt=""/>
                 </div>
@@ -18,6 +19,5 @@ class MyLi extends React.Component {
             </div>
         )
     }
-
 }
 export default MyLi

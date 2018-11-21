@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink,Link,BrowserRouter,Route,Redirect,Switch} from 'react-router-dom';
+import { Pagination } from 'antd';
 import Breadcrumb from '@js/userindex/components/breadcrumb'
 import MyLi from '@js/userindex/components/li'
 import { connect } from 'react-redux'
@@ -12,7 +13,10 @@ class LiveList extends React.Component {
     constructor(){
         super()
         this.state={
-            div:[]
+            div:[],
+            page:1,
+            pageSize:10,
+            total:100
         }
     }
     componentDidMount(){
@@ -20,17 +24,39 @@ class LiveList extends React.Component {
     }
     Loadlist=()=>{
         axios.post(this.props.baseurl+'Blog/showWenZhangList.form',qs.stringify({
-            biaoQian:'生活'
+            biaoQian:'生活',
+            dqy:this.state.page,
+            pageSize:this.state.pageSize
         }))
         .then((json)=>{
             var op=[]
-            for(var i=0;i<json.data.length;i++){
-                op.push(<MyLi value={json.data[i]} key={i}/>)
+            if(json.data.length>0){
+                for(var i=0;i<json.data.length;i++){
+                    op.push(<MyLi value={json.data[i]} key={i}/>)
+                }
+            }else{
+                op.push(
+                <div className="myli" key='1'>
+                    <h1>暂无数据</h1>
+                </div>)
             }
             this.setState({
-                div:op
+                div:op,
+                total:json.data.length
             })
         })
+    }
+    onChange = (page, pageSize) => {
+        this.setState({
+          page: page,
+          pageSize:pageSize
+        },()=>{this.Loadlist()});
+    }
+    onPageSize=(current, size)=>{
+        this.setState({
+            page:current,
+            pageSize:size
+        },()=>{this.Loadlist()})
     }
     render(){
         return(
@@ -39,6 +65,14 @@ class LiveList extends React.Component {
                 <div className="list">
                     <div className="list_left">
                         {this.state.div}
+                        <Pagination current={this.state.page} 
+                        onChange={this.onChange} 
+                        total={this.state.total} 
+                        pageSizeOptions={['10','15','20']} 
+                        onShowSizeChange={this.onPageSize} 
+                        showSizeChanger
+                        showQuickJumper
+                        hideOnSinglePage={true}/>
                     </div>
                     <Rightmeg/>
                 </div>
