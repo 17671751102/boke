@@ -41,7 +41,7 @@ class NormalLoginForm extends React.Component {
                 }))
                 .then((json)=>{
                     if(json.data[0].status==1){
-                        this.props.history.push("/admin_edit/")
+                        // this.props.history.push("/admin_edit/")
                     }
                 })
             }
