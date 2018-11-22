@@ -1,0 +1,42 @@
+.myli{
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 35px 25px 25px;
+    position: relative;
+    margin-bottom: 25px;
+    .img,.content{
+        float: left;
+    }
+    .both{
+        clear: both;
+    }
+    .img{
+        width: 150px;
+        height: 120px;
+        background: url('./img/01.png') no-repeat center;
+        background-size: 100%;
+    }
+    .content{
+        width: calc(100% - 175px);
+        margin-left: 25px;
+    }
+    .time{
+        display: inline-block;
+        position: absolute;
+        top: -16px;
+        left: 20px;
+        background-color: red;
+        color: #fff;
+        padding: 5px 20px;
+        &::before{
+            content: '';
+            position: absolute;
+            top: 0px;
+            left: -10px;
+            border: 5px solid red;
+            border-color: transparent red red transparent;
+            border-width: 8px 5px;
+        }
+    }
+}

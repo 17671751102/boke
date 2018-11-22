@@ -1,0 +1,31 @@
+.addfrom {
+  width: 1200px;
+  margin: 0 auto;
+  background-color: #fff;
+  min-height: 100vh;
+  -webkit-box-shadow: 0px 0px 15px #999;
+          box-shadow: 0px 0px 15px #999;
+  padding: 0px 250px;
+}
+
+.addfrom .ant-form-item textarea {
+  width: 700px;
+  height: 80px;
+  line-height: 22px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  resize: none;
+  padding-left: 12px;
+}
+
+.addfrom .ant-form-item textarea:focus {
+  outline: none;
+  border-color: #40a9ff;
+  -webkit-box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+          box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.addfrom .ant-form-item textarea:hover {
+  border-color: #40a9ff;
+}
+/*# sourceMappingURL=admin_edit.css.map */

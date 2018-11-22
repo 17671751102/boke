@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink,Link,BrowserRouter,Route,Redirect,Switch } from 'react-router-dom';
+import { NavLink,Link,BrowserRouter,Route,Redirect,Switch} from 'react-router-dom';
 import { Pagination } from 'antd';
 import Breadcrumb from '@js/userindex/components/breadcrumb'
 import MyLi from '@js/userindex/components/li'
@@ -9,7 +9,7 @@ import axios from 'axios'
 // 用来转换axios参数格式与ajax格式一致
 import qs from 'qs'
 import '@css/list.scss'
-class List extends React.Component {
+class JavaList extends React.Component {
     constructor(){
         super()
         this.state={
@@ -24,7 +24,7 @@ class List extends React.Component {
     }
     Loadlist=()=>{
         axios.post(this.props.baseurl+'Blog/showWenZhangList.form',qs.stringify({
-            biaoQian:'首页',
+            biaoQian:'java',
             dqy:this.state.page,
             pageSize:this.state.pageSize
         }))
@@ -61,7 +61,7 @@ class List extends React.Component {
     render(){
         return(
             <div className="content">
-                <Breadcrumb page='首页'/>
+                <Breadcrumb page='Java'/>
                 <div className="list">
                     <div className="list_left">
                         {this.state.div}
@@ -79,11 +79,12 @@ class List extends React.Component {
             </div>
         )
     }
+
 }
 const mapStateToProps = (state) => {
     return {
       baseurl: state.baseurl
     }
 }
-List = connect(mapStateToProps)(List)
-export default List
+JavaList = connect(mapStateToProps)(JavaList)
+export default JavaList

@@ -1,10 +1,10 @@
-
+@import './style.scss';
 .nav{
-    $bgword:#fff;
-    $ulword:#dadada;
-    $shencolor:#2a2a2a;
-    $qiancolor:#434343;
-    $activecolor:#005a82;
+    // $bgword:#fff;
+    // $ulword:#dadada;
+    // $shencolor:#2a2a2a;
+    // $qiancolor:#434343;
+    // $activecolor:#005a82;a
     $height:50px;
     height: $height;
     background-color: $qiancolor;
@@ -36,9 +36,26 @@
                 text-align: center;
                 width: 120px;
                 cursor: pointer;
+                a{
+                    display: inline-block;
+                    color: #fff;
+                    width: 100%;
+                    height: $height;
+                    line-height: $height;
+                    text-align: center;
+                    vertical-align: top;
+                }:focus{
+                    text-decoration: none;
+                }
+                a.active{
+                    background-color: $activecolor;
+                    height: 51px;
+                    line-height: 51px;
+                }
             }:hover{
                 background-color: $activecolor;
             }
         }
     }
 }
+

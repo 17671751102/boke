@@ -5,7 +5,7 @@ import axios from 'axios'
 // 用来转换axios参数格式与ajax格式一致
 import qs from 'qs'
 import '@css/login.scss'
-import $ from 'jquery'
+// import $ from 'jquery'
 const FormItem = Form.Item;
 class NormalLoginForm extends React.Component {
     constructor(){
@@ -18,29 +18,14 @@ class NormalLoginForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if(!err){
-                // $.ajax({
-                //     type: "POST",
-                //     url: this.props.baseurl+'Blog/usersLoad.form',
-                //     dataType: "json",
-                //     async: false,
-                //     data: {
-                //         zhangHao:values.username,
-                //         miMa:values.password
-                //     },
-                //     contentType:"application/x-www-form-urlencoded; charset=utf-8",
-                //     success: function (json) {
-                //         console.log(json)
-                //         if(json[0].status==1){
-                //             this.props.history.push("/admin_edit/")
-                //         }
-                //     }.bind(this)
-                // })
                 axios.post(this.props.baseurl+'Blog/usersLoad.form',qs.stringify({
                     zhangHao:values.username,
                     miMa:values.password
                 }))
                 .then((json)=>{
+                    console.log(json)
                     if(json.data[0].status==1){
+                        sessionStorage.setItem('logtoken', "深海兄弟")
                         this.props.history.push("/admin_edit/")
                     }
                 })
