@@ -30,9 +30,9 @@ class WebList extends React.Component {
         }))
         .then((json)=>{
             var op=[]
-            if(json.data.length>0){
-                for(var i=0;i<json.data.length;i++){
-                    op.push(<MyLi value={json.data[i]} key={i}/>)
+            if(json.data.wzlst.length>0){
+                for(var i=0;i<json.data.wzlst.length;i++){
+                    op.push(<MyLi value={json.data.wzlst[i]} key={i}/>)
                 }
             }else{
                 op.push(
@@ -42,7 +42,7 @@ class WebList extends React.Component {
             }
             this.setState({
                 div:op,
-                total:json.data.length
+                total:json.data.num
             })
         })
     }
