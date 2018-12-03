@@ -34,6 +34,15 @@ class List extends React.Component {
                 for(var i=0;i<json.data.wzlst.length;i++){
                     op.push(<MyLi value={json.data.wzlst[i]} key={i}/>)
                 }
+                op.push(
+                <Pagination current={this.state.page} 
+                    onChange={this.onChange} 
+                    total={json.data.num} 
+                    pageSizeOptions={['10','15','20']} 
+                    onShowSizeChange={this.onPageSize} 
+                    showSizeChanger
+                    showQuickJumper
+                    hideOnSinglePage={true}/>)
             }else{
                 op.push(
                 <div className="myli" key='1'>
@@ -41,8 +50,7 @@ class List extends React.Component {
                 </div>)
             }
             this.setState({
-                div:op,
-                total:json.data.num
+                div:op
             })
         })
     }
@@ -65,14 +73,14 @@ class List extends React.Component {
                 <div className="list">
                     <div className="list_left">
                         {this.state.div}
-                        <Pagination current={this.state.page} 
+                        {/* <Pagination current={this.state.page} 
                         onChange={this.onChange} 
                         total={this.state.total} 
                         pageSizeOptions={['10','15','20']} 
                         onShowSizeChange={this.onPageSize} 
                         showSizeChanger
                         showQuickJumper
-                        hideOnSinglePage={true}/>
+                        hideOnSinglePage={true}/> */}
                     </div>
                     <Rightmeg/>
                 </div>
