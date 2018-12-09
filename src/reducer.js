@@ -1,7 +1,7 @@
 const baseurl = (state, action) => {
     let basePath = "";
     if (window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1') {
-        basePath = 'http://pan82641058.vicp.io:36681/';
+        basePath = 'http://39.106.137.129:8080/';
     }
     if (!state) return {
         baseurl: basePath,

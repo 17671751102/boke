@@ -7,7 +7,7 @@ class MyLi extends React.Component {
         var date=this.props.value.fBTime
         return(
             <div className="myli">
-                <span className="time">{new Date(date.time).getFullYear()+'-'+(date.month+1)+'-'+date.date}</span>
+                <span className="time">{}</span>
                 <div className="img">
                     <img src={src} alt=""/>
                 </div>
