@@ -30,10 +30,19 @@ class BilibiliList extends React.Component {
         }))
         .then((json)=>{
             var op=[]
-            if(json.data.length>0){
-                for(var i=0;i<json.data.length;i++){
-                    op.push(<MyLi value={json.data[i]} key={i}/>)
+            if(json.data.wzlst.length>0){
+                for(var i=0;i<json.data.wzlst.length;i++){
+                    op.push(<MyLi value={json.data.wzlst[i]} key={i}/>)
                 }
+                op.push(
+                    <Pagination current={this.state.page} 
+                        onChange={this.onChange} 
+                        total={json.data.num} 
+                        pageSizeOptions={['10','15','20']} 
+                        onShowSizeChange={this.onPageSize} 
+                        showSizeChanger
+                        showQuickJumper
+                        hideOnSinglePage={true}/>)
             }else{
                 op.push(
                 <div className="myli" key='1'>
@@ -42,7 +51,7 @@ class BilibiliList extends React.Component {
             }
             this.setState({
                 div:op,
-                total:json.data.length
+                total:json.data.num
             })
         })
     }
@@ -65,14 +74,6 @@ class BilibiliList extends React.Component {
                 <div className="list">
                     <div className="list_left">
                         {this.state.div}
-                        <Pagination current={this.state.page} 
-                        onChange={this.onChange} 
-                        total={this.state.total} 
-                        pageSizeOptions={['10','15','20']} 
-                        onShowSizeChange={this.onPageSize} 
-                        showSizeChanger
-                        showQuickJumper
-                        hideOnSinglePage={true}/>
                     </div>
                     <Rightmeg/>
                 </div>
