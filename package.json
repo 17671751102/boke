@@ -117,5 +117,8 @@
       "react-app"
     ]
   },
-  "proxy": "http://192.168.40.180:51666"
+  "proxy": "http://192.168.40.180:51666",
+  "devDependencies": {
+    "babel-polyfill": "^6.26.0"
+  }
 }

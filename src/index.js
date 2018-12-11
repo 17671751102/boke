@@ -1,3 +1,4 @@
+import  "babel-polyfill";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -9,6 +10,7 @@ import 'moment/locale/zh-cn';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import baseurl from './reducer'
+
 const store = createStore(baseurl)
 ReactDOM.render(
 <LocaleProvider locale={zh_CN}>
