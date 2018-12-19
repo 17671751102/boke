@@ -32,7 +32,7 @@ class LiveList extends React.Component {
             var op=[]
             if(json.data.wzlst.length>0){
                 for(var i=0;i<json.data.wzlst.length;i++){
-                    op.push(<MyLi value={json.data.wzlst[i]} key={i}/>)
+                    op.push(<MyLi value={json.data.wzlst[i]} key={i} message='live'/>)
                 }
                 op.push(
                     <Pagination current={this.state.page} 
@@ -42,7 +42,8 @@ class LiveList extends React.Component {
                         onShowSizeChange={this.onPageSize} 
                         showSizeChanger
                         showQuickJumper
-                        hideOnSinglePage={true}/>)
+                        hideOnSinglePage={true}
+                        key='1'/>)
             }else{
                 op.push(
                 <div className="myli" key='1'>
