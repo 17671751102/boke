@@ -73,14 +73,6 @@ class List extends React.Component {
                 <div className="list">
                     <div className="list_left">
                         {this.state.div}
-                        {/* <Pagination current={this.state.page} 
-                        onChange={this.onChange} 
-                        total={this.state.total} 
-                        pageSizeOptions={['10','15','20']} 
-                        onShowSizeChange={this.onPageSize} 
-                        showSizeChanger
-                        showQuickJumper
-                        hideOnSinglePage={true}/> */}
                     </div>
                     <Rightmeg/>
                 </div>
