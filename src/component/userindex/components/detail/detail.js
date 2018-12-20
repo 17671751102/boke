@@ -5,12 +5,13 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 // 用来转换axios参数格式与ajax格式一致
 import qs from 'qs'
-import '@css/list.scss'
+import '@css/detail.scss'
 class Detail extends React.Component {
     constructor(){
         super()
         this.state={
-            
+            op:[],
+            message:''
         }
     }
     componentDidMount(){
@@ -18,10 +19,26 @@ class Detail extends React.Component {
     }
     Loadlist=()=>{
         axios.post(this.props.baseurl+'Blog/selectWenZhangById.form',qs.stringify({
-            wZId:window.location.pathname.split('/').pop()
+            wZId:window.location.pathname.split('/').pop(),
+            // ip:'127.0.0.1'
         }))
         .then((json)=>{
-            console.log(json)
+            var op=[]
+            if(json){
+                op.push(
+                    <div key='1' className="detail_content">
+                        <h2>{json.data[0].wZTitle}</h2>
+                        <div id='detail_message'></div>
+                    </div>
+                )
+                this.setState({
+                    op:op,
+                    message:json.data[0].wZText
+                },()=>{
+                    var message=document.getElementById('detail_message')
+                    message.innerHTML=this.state.message
+                })
+            }
         })
     }
     onChange = (page, pageSize) => {
@@ -42,7 +59,7 @@ class Detail extends React.Component {
                 <Breadcrumb page={this.props.message}/>
                 <div className="list">
                     <div className="list_left">
-                        
+                        {this.state.op}
                     </div>
                     <Rightmeg/>
                 </div>
