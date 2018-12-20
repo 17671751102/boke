@@ -17,13 +17,11 @@ class Detail extends React.Component {
         this.Loadlist()
     }
     Loadlist=()=>{
-        axios.post(this.props.baseurl+'Blog/showWenZhangList.form',qs.stringify({
-            biaoQian:'java',
-            dqy:this.state.page,
-            pageSize:this.state.pageSize
+        axios.post(this.props.baseurl+'Blog/selectWenZhangById.form',qs.stringify({
+            wZId:window.location.pathname.split('/').pop()
         }))
         .then((json)=>{
-            
+            console.log(json)
         })
     }
     onChange = (page, pageSize) => {
