@@ -12,7 +12,7 @@ class MyLi extends React.Component {
                     <img src={src} alt=""/>
                 </div>
                 <div className="content">
-                    <h3><Link to="">{this.props.value.wZTitle}</Link></h3>
+                    <h3><Link to={`${this.props.message}/${this.props.value.wZId}`}>{this.props.value.wZTitle}</Link></h3>
                     <p>{this.props.value.WZJJ}</p>
                 </div>
                 <div className="both"></div>

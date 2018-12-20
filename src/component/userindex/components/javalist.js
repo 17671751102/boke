@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink,Link,BrowserRouter,Route,Redirect,Switch} from 'react-router-dom';
 import { Pagination } from 'antd';
 import Breadcrumb from '@js/userindex/components/breadcrumb'
 import MyLi from '@js/userindex/components/li'
@@ -32,7 +31,7 @@ class JavaList extends React.Component {
             var op=[]
             if(json.data.wzlst.length>0){
                 for(var i=0;i<json.data.wzlst.length;i++){
-                    op.push(<MyLi value={json.data.wzlst[i]} key={i}/>)
+                    op.push(<MyLi value={json.data.wzlst[i]} key={i} message='java'/>)
                 }
                 op.push(
                     <Pagination current={this.state.page} 
@@ -42,7 +41,8 @@ class JavaList extends React.Component {
                         onShowSizeChange={this.onPageSize} 
                         showSizeChanger
                         showQuickJumper
-                        hideOnSinglePage={true}/>)
+                        hideOnSinglePage={true}
+                        key='1'/>)
             }else{
                 op.push(
                 <div className="myli" key='1'>
