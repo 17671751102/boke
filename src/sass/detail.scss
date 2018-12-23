@@ -2,6 +2,13 @@
     .list_left{
         .detail_content{
             background-color: #fff;
+            padding: 30px;
+            h2{
+                margin-bottom: 0px;
+            }
+            #detail_message{
+                margin-top: 20px;
+            }
         }
     }
 }

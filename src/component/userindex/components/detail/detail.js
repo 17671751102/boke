@@ -20,7 +20,6 @@ class Detail extends React.Component {
     Loadlist=()=>{
         axios.post(this.props.baseurl+'Blog/selectWenZhangById.form',qs.stringify({
             wZId:window.location.pathname.split('/').pop(),
-            // ip:'127.0.0.1'
         }))
         .then((json)=>{
             var op=[]
@@ -28,6 +27,10 @@ class Detail extends React.Component {
                 op.push(
                     <div key='1' className="detail_content">
                         <h2>{json.data[0].wZTitle}</h2>
+                        <span>{new Date().getFullYear(json.data[0].fBTime.time)+'-'+(json.data[0].fBTime.month+1)+'-'+json.data[0].fBTime.date}</span><br/>
+                        <span>标签：{json.data[0].biaoQian}</span><br/>
+                        <span>作者：{json.data[0].userss.name}</span><br/>
+                        {json.data[0].wZurl?<span>转载：{json.data[0].wZurl}</span>:''}
                         <div id='detail_message'></div>
                     </div>
                 )
