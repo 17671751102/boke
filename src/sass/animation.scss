@@ -1,0 +1,91 @@
+.animation-icon{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    div{
+        width: 30px;
+        height: 5px;
+        position: absolute;
+        background: #ffffff;
+        margin-left: 5px;
+    }
+    .icon-top{
+        top: 5px;
+        animation: to-top .5s ;
+        animation-fill-mode: forwards;
+        transform-origin: 0px 2.5px;
+    }
+    .icon-mid{
+        top: 15px;
+    }
+    .icon-btn{
+        top: 25px;
+        animation: to-btn .5s ;
+        animation-fill-mode: forwards;
+        transform-origin: 0px 2.5px;
+    }
+    .re-top{
+        animation: re-top .5s ;
+        animation-fill-mode: forwards;
+        transform-origin: 0px 2.5px;
+    }
+    .re-btn{
+        animation: re-btn .5s ;
+        animation-fill-mode: forwards;
+        transform-origin: 0px 2.5px;
+    }
+    @keyframes to-top {
+        from{
+            transform: rotate(0deg)
+        }
+        to{
+            transform: rotate(45deg)
+        }
+    }
+    @keyframes to-btn {
+        from{
+            transform: rotate(0deg)
+        }
+        to{
+            transform: rotate(-45deg)
+        }
+    }
+    @keyframes re-top {
+        from{
+            transform: rotate(45deg)
+        }
+        to{
+            transform: rotate(0deg)
+        }
+    }
+    @keyframes re-btn {
+        from{
+            transform: rotate(-45deg)
+        }
+        to{
+            transform: rotate(0deg)
+        }
+    }
+}
+.animation-box{
+    position: fixed;
+    top: 50px;
+    left: 0px;
+    background: #000;
+    width: 100%;
+    opacity: .5;
+     display: none;
+    p{
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        a{
+            color: #ffffff;
+            width: 100%;
+            display: inline-block;
+        }
+    }
+}
