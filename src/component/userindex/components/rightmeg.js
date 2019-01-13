@@ -9,7 +9,7 @@ class Rightmeg extends React.Component {
                     <div className="blogger_meg">
                         <h3>富婆快乐团</h3>
                         <p>
-                            这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这
+                            这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这111111
                         </p>
                     </div>
                     <img src={src} alt=""/>

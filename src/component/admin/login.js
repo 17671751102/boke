@@ -11,9 +11,23 @@ class NormalLoginForm extends React.Component {
     constructor(){
         super()
         this.state={
-            loading:false
+            loading:false,
+            // value:{}
         }
+        // this.time=null
     }
+    // loadajax=()=>{
+    //     $.ajax({
+    //         url:'',
+    //         type:'post',
+    //         dataType:'json',
+    //         success:(data)=>{
+    //             this.setState({
+    //                 value:data
+    //             })
+    //         }
+    //     })
+    // }
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -23,7 +37,6 @@ class NormalLoginForm extends React.Component {
                     miMa:values.password
                 }))
                 .then((json)=>{
-                    console.log(json)
                     if(json.data[0].status==1){
                         sessionStorage.setItem('logtoken', "深海兄弟")
                         this.props.history.push("/admin_edit/")
@@ -32,7 +45,14 @@ class NormalLoginForm extends React.Component {
             }
         })
     }
-  render() {
+    // componentDidMount=()=>{
+    //     this.time=setInterval(()=>{console.log(111)},1000)
+    //     this.loadajax()
+    // }
+    // componentWillUnmount=()=>{
+    //     clearInterval(this.time)
+    // }
+render() {
     const { getFieldDecorator } = this.props.form;
     return (
         <Spin tip="Loading..." spinning={this.state.loading}>

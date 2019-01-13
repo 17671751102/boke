@@ -1,0 +1,72 @@
+.aboutme{
+    box-shadow: 0px 1px 0px rgba(255,255,255,.1);
+    border-radius: 8px;
+    background: url(../sass/img/quote-bg.png) no-repeat top right rgba(42,42,42,1);
+    height: 320px;
+    padding-bottom: 20px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    .card{
+        margin-bottom: 20px;
+        h2{
+            font-size: 24px;
+            margin: 10px;
+            color: #89919a;
+            font-weight: normal;
+            padding-bottom: 10px;
+        }
+        p{
+            font-size: 14px;
+            padding: 0 0 0 24px;
+            line-height: 28px;
+            text-shadow: 0px 1px 2px rgba(0,0,0,.5);
+            color: #d0d2d4;
+        }
+    }
+    .linkmore{
+        list-style: none;
+        display: inline-block;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0px 30px;
+        text-align: center;
+        // float: left;
+        li{
+            display: inline-block;
+            // position: relative;
+            height: 56px;
+            width: 56px;
+            border: 2px solid #1a1a1a;
+            box-shadow: 0px 1px 0px #888;
+            border-radius: 28px;
+            margin: 0px 8px;
+            position: relative;
+            &:hover{
+                opacity: 0.5; 
+            }
+            .anticon{
+                position: absolute;
+                top: 6px;
+                left: 8px;
+                font-size: 36px;
+                cursor: pointer;
+            }
+            .anticon-home{
+                color: #ef5509;
+            }
+            .anticon-weibo{
+                color: #FF991A;
+            }
+            .anticon-qq{
+                color: #1296DB;
+            }
+            .anticon-wechat{
+                color: #07AF12;
+            }
+        }
+    }
+}
+.aboutme_fixed{
+    position: fixed;
+    top: 100px;
+}

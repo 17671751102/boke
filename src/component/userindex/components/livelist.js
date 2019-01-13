@@ -1,6 +1,5 @@
 import React from 'react';
-import { NavLink,Link,BrowserRouter,Route,Redirect,Switch} from 'react-router-dom';
-import { Pagination } from 'antd';
+import { Pagination,Row,Col } from 'antd';
 import Breadcrumb from '@js/userindex/components/breadcrumb'
 import MyLi from '@js/userindex/components/li'
 import { connect } from 'react-redux'
@@ -9,14 +8,13 @@ import axios from 'axios'
 import qs from 'qs'
 import '@css/list.scss'
 import Rightmeg from '@js/userindex/components/rightmeg'
+import Javalistdetail from '@js/userindex/components/javalistdetail'
+import Aboutme from '@js/userindex/components/aboutme';
 class LiveList extends React.Component {
     constructor(){
         super()
         this.state={
-            div:[],
-            page:1,
-            pageSize:10,
-            total:100
+            listData:[],
         }
     }
     componentDidMount(){
@@ -25,35 +23,11 @@ class LiveList extends React.Component {
     Loadlist=()=>{
         axios.post(this.props.baseurl+'Blog/showWenZhangList.form',qs.stringify({
             biaoQian:'生活',
-            dqy:this.state.page,
-            pageSize:this.state.pageSize
+            dqy:this.page.state.page,
+            pageSize:6,
         }))
         .then((json)=>{
-            var op=[]
-            if(json.data.wzlst.length>0){
-                for(var i=0;i<json.data.wzlst.length;i++){
-                    op.push(<MyLi value={json.data.wzlst[i]} key={i} message='live'/>)
-                }
-                op.push(
-                    <Pagination current={this.state.page} 
-                        onChange={this.onChange} 
-                        total={json.data.num} 
-                        pageSizeOptions={['10','15','20']} 
-                        onShowSizeChange={this.onPageSize} 
-                        showSizeChanger
-                        showQuickJumper
-                        hideOnSinglePage={true}
-                        key='1'/>)
-            }else{
-                op.push(
-                <div className="myli" key='1'>
-                    <h1>暂无数据</h1>
-                </div>)
-            }
-            this.setState({
-                div:op,
-                total:json.data.num
-            })
+            this.setState({listData:json.data.wzlst})
         })
     }
     onChange = (page, pageSize) => {
@@ -70,15 +44,19 @@ class LiveList extends React.Component {
     }
     render(){
         return(
-            <div className="content">
-                <Breadcrumb page='生活'/>
-                <div className="list">
-                    <div className="list_left">
-                        {this.state.div}
-                    </div>
-                    <Rightmeg/>
-                </div>
-            </div>
+            <Row className="content">
+                <Col lg={{span:23,offset:1}}>
+                    <Breadcrumb page='生活'/>
+                </Col>
+                <Row className="list antd-list">
+                    <Col lg={{span:15,offset:1}} md={24} xs={24} className="list_left">
+                        <Javalistdetail listData={this.state.listData} ref={page=>this.page=page}/>
+                    </Col>
+                    <Col lg={{span:7,offset:1}} md={0} xs={0}>
+                        <Aboutme />
+                    </Col>                   
+                </Row>
+            </Row>
         )
     }
 }

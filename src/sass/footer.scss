@@ -1,0 +1,32 @@
+.footer{
+    position: fixed;
+    bottom: 0px;
+    z-index: 1;
+    width: 100%;
+    background: #414141;
+    // color: #ddd;
+    .footer-inner{
+        margin: 0 auto;
+        padding: 16px 15px 14px 15px;
+        width: 100%;
+        max-width: 1200px;
+        background-color: #414141;
+        color: #aaa;
+        .footer-left{
+            float: left;
+            a{
+                color: #aaa;
+                padding: 0px 10px;
+            }
+        }
+        .footer-right{
+            float: right;
+            a{
+                color: #aaa;
+            }
+        }
+        .both{
+            clear: both;
+        }
+    }
+}
