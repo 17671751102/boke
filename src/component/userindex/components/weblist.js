@@ -45,11 +45,9 @@ class WebList extends React.Component {
     render(){
         return(
             <Row className="content">
-                <Col lg={{span:23,offset:1}}>
-                    <Breadcrumb page='web前端'/>
-                </Col>
+                <Breadcrumb page='web前端'/>
                 <Row className="list antd-list">
-                    <Col lg={{span:15,offset:1}} md={24} xs={24} className="list_left">
+                    <Col lg={16}  md={24} xs={24} className="list_left">
                         <Javalistdetail listData={this.state.listData} ref={page=>this.page=page}/>
                     </Col>
                     <Col lg={{span:7,offset:1}} md={0} xs={0}>

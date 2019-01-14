@@ -10,6 +10,12 @@ class Modallink extends React.Component {
     });
   }
 
+  spanShowModal = () => {
+    this.setState({
+      visible: true,
+    });
+  }
+
   handleOk = (e) => {
     console.log(e);
     this.setState({
@@ -28,12 +34,14 @@ class Modallink extends React.Component {
     return (
       <div>
         <Icon type={this.props.type} onClick={this.showModal}/>
+        <span onClick={this.spanShowModal}>{this.props.text}</span>
         <Modal
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           footer={null}
           width={300}
+          style={{margin:'auto'}}
         >
           <img src={this.props.url} style={{width:250,height:250}}/>
         </Modal>

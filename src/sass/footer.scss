@@ -13,16 +13,24 @@
         background-color: #414141;
         color: #aaa;
         .footer-left{
-            float: left;
+            // float: left;
             a{
                 color: #aaa;
                 padding: 0px 10px;
             }
         }
         .footer-right{
-            float: right;
+            // float: right;
+            div{
+                display: inline-block;
+                span{
+                    color: #aaa;
+                    padding: 0px 10px; 
+                }
+            }
             a{
                 color: #aaa;
+                padding: 0px 10px;
             }
         }
         .both{
