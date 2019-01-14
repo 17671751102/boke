@@ -1,29 +1,38 @@
 body{
     background-color: #eaeaea;
-    
-    // min-width: 1200px;
-    min-height: 600px;
-}
-.login-form{
-    width: 400px;
-    height: 160px;
-    margin: 0 auto;
-    margin-top: 20%;
-    .ant-form-item{
-        position: relative;
-        i{
-            position: absolute;
-            top: 1px;
-            left: 10px;
-            color: #45a0ba;
-            z-index: 1;
-            font-size: 16px;
+    #root{
+        .ant-spin-nested-loading{
+            position: static;
+            .ant-spin-container{
+                position: static;
+                .login-form{
+                    width: 400px;
+                    height: 160px;
+                    margin: 0 auto;
+                    position: absolute;
+                    top :50%;
+                    left: 50%;
+                    margin-top: -80px;
+                    margin-left: -200px;
+                    .ant-form-item{
+                        position: relative;
+                        i{
+                            position: absolute;
+                            top: 1px;
+                            left: 10px;
+                            color: #45a0ba;
+                            z-index: 1;
+                            font-size: 16px;
+                        }
+                        input{
+                            padding-left: 27px;
+                        }
+                    }
+                    button{
+                        width: 400px;
+                    }
+                }
+            }
         }
-        input{
-            padding-left: 27px;
-        }
-    }
-    button{
-        width: 400px;
     }
 }

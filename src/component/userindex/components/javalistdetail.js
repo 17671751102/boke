@@ -1,6 +1,7 @@
 import React from 'react';
 import { List, Avatar, Icon } from 'antd';
 import {Link} from 'react-router-dom'
+import Delete from '@js/userindex/components/delete';
 const IconText = ({ type, text }) => (
     <span>
         <Icon type={type} style={{ marginRight: 8 }} />
@@ -29,7 +30,12 @@ class Javalistdetail extends React.Component {
                 renderItem={item => (
                 <List.Item
                     key={item.wZId}
-                    actions={[<IconText type="star-o" text="156" />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
+                    actions={[
+                    <span><IconText type="user" />{item.userss.name}</span>,
+                    <IconText type="like-o" text="156" />, <IconText type="message" text="2" />,
+                    sessionStorage.getItem('logtoken')?
+                    <span style={{marginLeft:30}}><a className='edit'>编辑</a><span className='blank'>|
+                    </span><Delete/></span>:'']}
                     extra={<img width={272} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
                 >
                     <List.Item.Meta
@@ -37,7 +43,6 @@ class Javalistdetail extends React.Component {
                     title={<Link to={`/java/${item.wZId}`}>{item.wZTitle}</Link>}
                     description={item.WZJJ}
                     />
-                    {/* {item.content} */}
                 </List.Item>
                 )}
             />

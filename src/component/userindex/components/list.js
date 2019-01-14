@@ -1,6 +1,5 @@
 import React from 'react';
 import { Row, Col, Pagination } from 'antd';
-import Rightmeg from '@js/userindex/components/rightmeg';
 import Carouseldiv from '@js/userindex/components/carousel';
 import Bannerlist from '@js/userindex/components/bannerlist';
 import Aboutme from '@js/userindex/components/aboutme';
