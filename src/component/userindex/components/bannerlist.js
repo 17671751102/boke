@@ -17,15 +17,18 @@ import Delete from '@js/userindex/components/delete';
     </span>
     );
   class Bannerlist extends React.Component {
-    state = {
-      initLoading: true,
-      loading: false,
-      data: [],
-      list: [],
-      page:1,
-      pageSize:3,
-      bottom:false,
-      switch:null
+    constructor(props){
+      super(props)
+        this.state = {
+        initLoading: true,
+        loading: false,
+        data: [],
+        list: [],
+        page:1,
+        pageSize:3,
+        bottom:false,
+        switch:props.wztitle==''?null:1
+      }
     }
     componentDidMount() {
       this.getData((res) => {
@@ -37,12 +40,18 @@ import Delete from '@js/userindex/components/delete';
       });
     }
     componentWillReceiveProps(nextProps){
-      if(this.props.search!=nextProps.search){
+      if(this.props.wztitle!=nextProps.wztitle){
         this.setState({
-          data:nextProps.search,
-          list:nextProps.search,
           bottom: false,
           switch:1
+        },()=>{
+          this.getData((res) => {
+            this.setState({
+              initLoading: false,
+              data: res.data.wzlst,
+              list: res.data.wzlst,
+            });
+          })
         })
       }
     }
@@ -140,7 +149,6 @@ import Delete from '@js/userindex/components/delete';
   const mapStateToProps = (state) => {
     return {
       baseurl: state.baseurl,
-      search: state.search,
       wztitle:state.wztitle
     }
   }

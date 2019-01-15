@@ -12,8 +12,6 @@ const baseurl = (state, action) => {
     switch (action.type) {
         case 'CHANGE_COLOR':
             return { ...state, listreload: action.listreload }
-        case 'CHANGE_HOMELIST':
-            return {...state, search: action.search }
         case 'CHANGE_TITLE':
             return{...state, wztitle: action.wztitle}
         default:
