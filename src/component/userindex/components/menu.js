@@ -20,8 +20,9 @@ class Menu extends React.Component {
             if(e.target.value=='admin_login'){
                 this.props.history.push('/admin_login')
             }else{
+                var title=e.target.value
                 axios.post(this.props.baseurl+'Blog/selectWenZhangMoHu.form',qs.stringify({
-                    wZTitle:e.target.value,
+                    wZTitle:title,
                     dqy:1,
                     pageSize:3,
                 }))
@@ -29,6 +30,10 @@ class Menu extends React.Component {
                     if(this.props.onChangeList){
                         var b=json.data.wzlst
                         this.props.onChangeList(b)
+                    }
+                    if(this.props.onChangeTitle){
+                        var c=title
+                        this.props.onChangeTitle(c)
                     }
                 })
             }
@@ -39,16 +44,16 @@ class Menu extends React.Component {
             <div className="nav">
                 <Row className="nav_mid">
                     <Col xxl={{span:2,offset:2}} lg={{span:4,offset:2}} md={{span:8}} xs={12}><span>博客LOG</span></Col>
-                    <Col className='title-nav' xxl={15} lg={11} md={0} xs={0}>
+                    <Col className='title-nav' xxl={14} lg={11} md={0} xs={0}>
                         <Row className='title-row'>
-                            <Col span={5}><NavLink exact to='/' onClick={this.handleLink}>首页</NavLink></Col>
-                            <Col span={5}><NavLink to='/java' onClick={this.handleLink}>Java</NavLink></Col>
-                            <Col span={5}><NavLink to='/web' onClick={this.handleLink}>web前端</NavLink></Col>
-                            <Col span={5}><NavLink to='/bilibili' onClick={this.handleLink}>动漫</NavLink></Col>
+                            <Col span={4}><NavLink exact to='/' onClick={this.handleLink}>首页</NavLink></Col>
+                            <Col span={4}><NavLink to='/java' onClick={this.handleLink}>Java</NavLink></Col>
+                            <Col span={4}><NavLink to='/web' onClick={this.handleLink}>web前端</NavLink></Col>
+                            <Col span={4}><NavLink to='/bilibili' onClick={this.handleLink}>动漫</NavLink></Col>
                             <Col span={4}><NavLink to='/live' onClick={this.handleLink}>生活</NavLink></Col>
                         </Row>
                     </Col>                        
-                    <Col className='search' xxl={{span:2,offset:2}} lg={{span:4,offset:2}} md={{span:8,offset:6}} xs={0}>
+                    <Col className='search' xxl={{span:4,offset:0}} lg={{span:4,offset:0}} md={{span:8,offset:6}} xs={0}>
                         <div className='search-div'>
                             <input type='text' placeholder='请输入内容' onKeyDown={this.handleEnter}/>
                             <Icon type="search" />                       
@@ -75,6 +80,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onChangeList:(b)=>{
             dispatch({type: 'CHANGE_HOMELIST', search:b})
+        },
+        onChangeTitle:(c)=>{
+            dispatch({type: 'CHANGE_TITLE', wztitle:c})
         }
     }
 }
