@@ -1,14 +1,22 @@
 import React from 'react';
 import {
-    List, Avatar, Button, Skeleton,
+    List, Avatar, Button, Skeleton, Icon,
   } from 'antd';
-  import { Link} from 'react-router-dom';
-  import { connect } from 'react-redux'
-  import axios from 'axios'
-  // 用来转换axios参数格式与ajax格式一致
-  import qs from 'qs'
+import { Link} from 'react-router-dom';
+import { connect } from 'react-redux'
+import axios from 'axios'
+// 用来转换axios参数格式与ajax格式一致
+import qs from 'qs'
   //用来点击增加请求列表数量
+import Delete from '@js/userindex/components/delete';
+
   const count = 3;  
+  const IconText = ({ type, text }) => (
+    <span>
+        <Icon type={type} style={{ marginRight: 8 }} />
+        {text}
+    </span>
+    );
   class Bannerlist extends React.Component {
     state = {
       initLoading: true,
@@ -89,7 +97,17 @@ import {
           loadMore={loadMore}
           dataSource={list}
           renderItem={abc => (
-            <List.Item actions={[<span>20190101</span>]} extra={<span><a>edit</a><span className='blank'>|</span><a>more</a></span>}>
+            <List.Item actions={[
+              // <span><IconText type="user" />{abc.userss.name}</span>,
+              <span><IconText type="clock-circle" />{new Date().getFullYear(abc.fBTime.time)+'-'+(abc.fBTime.month+1)+'-'+abc.fBTime.date}</span>,
+              <IconText type="like-o" text="156" />,
+              <IconText type="message" text="2" />,
+              <IconText type="eye" text="168" />,
+            ]}
+            extra={sessionStorage.getItem('logtoken')?
+            <span><a className='edit'>编辑</a><span className='blank'>|
+            </span><Delete/></span>:''
+          }>
               <Skeleton avatar title={false} loading={abc.loading} active>
                 <List.Item.Meta
                   avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}

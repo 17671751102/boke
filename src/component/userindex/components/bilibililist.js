@@ -45,9 +45,7 @@ class BilibiliList extends React.Component {
     render(){
         return(
             <Row className="content">
-                <Col lg={{span:23,offset:1}}>
-                    <Breadcrumb page='动漫'/>
-                </Col>
+                <Breadcrumb page='动漫'/>
                 <Row className="list antd-list">
                     <Col lg={16} md={24} xs={24} className="list_left">
                         <Javalistdetail listData={this.state.listData} ref={page=>this.page=page}/>

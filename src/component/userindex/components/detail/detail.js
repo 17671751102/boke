@@ -1,6 +1,6 @@
 import React from 'react';
 import Breadcrumb from '@js/userindex/components/breadcrumb'
-import Rightmeg from '@js/userindex/components/rightmeg'
+import Aboutme from '@js/userindex/components/aboutme'
 import { connect } from 'react-redux'
 import axios from 'axios'
 // 用来转换axios参数格式与ajax格式一致
@@ -65,7 +65,7 @@ class Detail extends React.Component {
                     <div className="list_left">
                         {this.state.op}
                     </div>
-                    <Rightmeg/>
+                    <Aboutme/>
                 </div>
             </div>
         )

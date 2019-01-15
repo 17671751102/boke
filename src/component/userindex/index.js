@@ -24,11 +24,14 @@ class Index extends React.Component {
         window.onscroll=(e)=>{
             var list=document.getElementsByClassName('list')[0]
             var aboutme =document.getElementsByClassName('aboutme')[0]
-            if(list.offsetTop- document.documentElement.scrollTop<=100){
-                aboutme.setAttribute('class','aboutme aboutme_fixed')
-            }else{
-                aboutme.className='aboutme'
+            if(aboutme){
+                if(list.offsetTop- document.documentElement.scrollTop<=100){
+                    aboutme.setAttribute('class','aboutme aboutme_fixed')
+                }else{
+                    aboutme.className='aboutme'
+                }
             }
+            
         }
     }
     render(){

@@ -14,6 +14,9 @@
             color: #89919a;
             font-weight: normal;
             padding-bottom: 10px;
+            .anticon-edit{
+                margin-left: 30px;
+            }
         }
         p{
             font-size: 14px;
@@ -69,4 +72,5 @@
 .aboutme_fixed{
     position: fixed;
     top: 100px;
+    width: 27.7%;
 }
