@@ -1,18 +1,16 @@
 import React from 'react';
 import { Row, Col, Icon, BackTop} from 'antd';
 import { NavLink,Link} from 'react-router-dom';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import MyAnimation from '@js/userindex/components/animation';
-import '@css/menu.scss'
+import '@css/menu.scss';
+import qs from 'querystring'
+import axios from 'axios';
+// 用来转换axios参数格式与ajax格式一致
 class Menu extends React.Component {
-    constructor(){
-        super()
-        this.state={
-
-        }
-    }
     handleLink=()=>{
         if(this.props.onSwitchColor){
+            console.log(456)
             var a=this.props.listreload+1
             this.props.onSwitchColor(a)
         }
@@ -21,6 +19,18 @@ class Menu extends React.Component {
         if(e.keyCode==13){
             if(e.target.value=='admin_login'){
                 this.props.history.push('/admin_login')
+            }else{
+                axios.post(this.props.baseurl+'Blog/selectWenZhangMoHu.form',qs.stringify({
+                    wZTitle:e.target.value,
+                    dqy:1,
+                    pageSize:3,
+                }))
+                .then((json)=>{
+                    if(this.props.onChangeList){
+                        var b=json.data.wzlst
+                        this.props.onChangeList(b)
+                    }
+                })
             }
         }
     }
@@ -62,6 +72,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onSwitchColor: (a) => {
             dispatch({ type: 'CHANGE_COLOR', listreload: a })
+        },
+        onChangeList:(b)=>{
+            dispatch({type: 'CHANGE_HOMELIST', search:b})
         }
     }
 }

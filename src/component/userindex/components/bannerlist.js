@@ -9,7 +9,6 @@ import axios from 'axios'
 import qs from 'qs'
   //用来点击增加请求列表数量
 import Delete from '@js/userindex/components/delete';
-
   const count = 3;  
   const IconText = ({ type, text }) => (
     <span>
@@ -27,7 +26,6 @@ import Delete from '@js/userindex/components/delete';
       pageSize:3,
       bottom:false
     }
-  
     componentDidMount() {
       this.getData((res) => {
         this.setState({
@@ -37,7 +35,11 @@ import Delete from '@js/userindex/components/delete';
         });
       });
     }
-  
+    componentWillReceiveProps(nextProps){
+      if(this.props.search!=nextProps.search){
+        this.setState({data:nextProps.search,list:nextProps.search})
+      }
+    }
     getData = (callback,a) => {
       axios.post(this.props.baseurl+'Blog/showWenZhangList.form',qs.stringify({
         biaoQian:'',
@@ -54,7 +56,7 @@ import Delete from '@js/userindex/components/delete';
         pageSize:this.state.pageSize+count,
         list: this.state.data.concat([...new Array(count)].map(() => ({ loading: true, abc: {} }))),
       });
-      var a=this.state.pageSize+1
+      var a=this.state.pageSize+count
       this.getData((res) => {
         if(this.state.data.length==res.data.wzlst.length){
           this.setState({
@@ -72,7 +74,6 @@ import Delete from '@js/userindex/components/delete';
         }
       },a);
     }
-  
     render() {
       var { initLoading, loading, list,bottom } = this.state;
       const loadMore = !initLoading && !loading&&!bottom ? (
@@ -123,7 +124,8 @@ import Delete from '@js/userindex/components/delete';
   }
   const mapStateToProps = (state) => {
     return {
-      baseurl: state.baseurl
+      baseurl: state.baseurl,
+      search: state.search
     }
   }
   Bannerlist = connect(mapStateToProps)(Bannerlist)
