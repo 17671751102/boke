@@ -6,6 +6,7 @@ import axios from 'axios'
 // 用来转换axios参数格式与ajax格式一致
 import qs from 'qs'
 import '@css/detail.scss'
+import { Row, Col } from 'antd';
 class Detail extends React.Component {
     constructor(){
         super()
@@ -61,12 +62,14 @@ class Detail extends React.Component {
         return(
             <div className="content">
                 <Breadcrumb page={this.props.message}/>
-                <div className="list">
-                    <div className="list_left">
+                <Row className="list antd-list">
+                    <Col lg={16} md={24} xs={24} className="list_left">
                         {this.state.op}
-                    </div>
-                    <Aboutme/>
-                </div>
+                    </Col>
+                    <Col lg={{span:7,offset:1}} md={0} xs={0}>
+                        <Aboutme/>
+                    </Col>   
+                </Row>
             </div>
         )
     }
