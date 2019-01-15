@@ -1,25 +1,31 @@
 .content{
     min-height: calc(100% - 50px);
+    margin-top: 50px;
+    margin-bottom: 51px;
     .list{
-        width: 1200px;
+        // width: 1200px;
         margin: 0 auto;
         &>div{
             float: left;
         }
-        &::after{
+        &:after{
             content: '';
             display: inline-block;
             clear: both;
             width: 1px;
         }
         .list_left{
-            width: 825px;
-            margin-right: 25px;
+            // width: 825px;
+            // margin-right: 25px;
             min-height: 500px;
+            min-height: 500px;
+            background: #fff;
+            padding: 0px 20px;
+            margin-left: 0px;
         }
         .list_right{
             width: 350px;
-            height: 200px;
+            // height: 200px;
             .blogger{
                 border-radius: 8px;
                 background-color: #fff;
@@ -55,6 +61,29 @@
                     }:nth-child(2){
                         margin: 0px 19px;
                     }
+                }
+            }
+        }
+    }
+    .antd-list{
+        margin-top: 50px;
+        max-width: 95%;
+        .left-title{
+            background: #f7f7f7;           
+            border-radius: 6px 6px 0px 0px;            
+            height: 35px;
+            line-height: 35px;
+            p{
+                margin-bottom: 0px;
+                font-size: 16px;
+                padding-left: 20px;
+            }
+            .left-article{
+                padding:16px;
+                background: #fff;
+                .blank{
+                    color: #1890ff;
+                    padding: 0px 5px;
                 }
             }
         }

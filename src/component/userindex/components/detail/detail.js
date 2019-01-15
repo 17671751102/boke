@@ -16,6 +16,7 @@ class Detail extends React.Component {
     }
     componentDidMount(){
         this.Loadlist()
+        console.log(this)
     }
     Loadlist=()=>{
         axios.post(this.props.baseurl+'Blog/selectWenZhangById.form',qs.stringify({
