@@ -8,10 +8,6 @@ import weibo from '@css/img/weibo.jpg'
 import {Link} from 'react-router-dom'
 import Edit from '@js/userindex/components/edit'
 class Aboutme extends React.Component{
-    componentDidMount(){
-        console.log(this)
-        
-    }
     render(){
         return(
             <div className='aboutme'>

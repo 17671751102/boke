@@ -20,8 +20,9 @@ class Menu extends React.Component {
             if(e.target.value=='admin_login'){
                 this.props.history.push('/admin_login')
             }else{
+                var title=e.target.value
                 axios.post(this.props.baseurl+'Blog/selectWenZhangMoHu.form',qs.stringify({
-                    wZTitle:e.target.value,
+                    wZTitle:title,
                     dqy:1,
                     pageSize:3,
                 }))
@@ -29,6 +30,10 @@ class Menu extends React.Component {
                     if(this.props.onChangeList){
                         var b=json.data.wzlst
                         this.props.onChangeList(b)
+                    }
+                    if(this.props.onChangeTitle){
+                        var c=title
+                        this.props.onChangeTitle(c)
                     }
                 })
             }
@@ -75,6 +80,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onChangeList:(b)=>{
             dispatch({type: 'CHANGE_HOMELIST', search:b})
+        },
+        onChangeTitle:(c)=>{
+            dispatch({type: 'CHANGE_TITLE', wztitle:c})
         }
     }
 }

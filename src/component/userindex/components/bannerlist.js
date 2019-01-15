@@ -24,7 +24,8 @@ import Delete from '@js/userindex/components/delete';
       list: [],
       page:1,
       pageSize:3,
-      bottom:false
+      bottom:false,
+      switch:null
     }
     componentDidMount() {
       this.getData((res) => {
@@ -37,18 +38,34 @@ import Delete from '@js/userindex/components/delete';
     }
     componentWillReceiveProps(nextProps){
       if(this.props.search!=nextProps.search){
-        this.setState({data:nextProps.search,list:nextProps.search})
+        this.setState({
+          data:nextProps.search,
+          list:nextProps.search,
+          bottom: false,
+          switch:1
+        })
       }
     }
     getData = (callback,a) => {
-      axios.post(this.props.baseurl+'Blog/showWenZhangList.form',qs.stringify({
-        biaoQian:'',
-        dqy:this.state.page,
-        pageSize:a||this.state.pageSize
-      }))
-      .then((json)=>{
-        callback(json);
-      })
+      if(this.state.switch){
+        axios.post(this.props.baseurl+'Blog/selectWenZhangMoHu.form',qs.stringify({
+          wZTitle:this.props.wztitle,
+          dqy:this.state.page,
+          pageSize:a||this.state.pageSize
+        }))
+        .then((json)=>{
+          callback(json);
+        })
+      }else{
+        axios.post(this.props.baseurl+'Blog/showWenZhangList.form',qs.stringify({
+          biaoQian:'',
+          dqy:this.state.page,
+          pageSize:a||this.state.pageSize
+        }))
+        .then((json)=>{
+          callback(json);
+        })
+      }
     }
     onLoadMore = () => {
       this.setState({
@@ -99,8 +116,6 @@ import Delete from '@js/userindex/components/delete';
           dataSource={list}
           renderItem={abc => (
             <List.Item actions={[
-              // <span><IconText type="user" />{abc.userss.name}</span>,
-              <span><IconText type="clock-circle" />{new Date().getFullYear(abc.fBTime.time)+'-'+(abc.fBTime.month+1)+'-'+abc.fBTime.date}</span>,
               <IconText type="like-o" text="156" />,
               <IconText type="message" text="2" />,
               <IconText type="eye" text="168" />,
@@ -125,7 +140,8 @@ import Delete from '@js/userindex/components/delete';
   const mapStateToProps = (state) => {
     return {
       baseurl: state.baseurl,
-      search: state.search
+      search: state.search,
+      wztitle:state.wztitle
     }
   }
   Bannerlist = connect(mapStateToProps)(Bannerlist)
