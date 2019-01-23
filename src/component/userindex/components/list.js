@@ -20,13 +20,10 @@ class List extends React.Component {
                 <Carouseldiv />
                 {/* <Breadcrumb page='首页'/> */}
                 <Row className="list antd-list">
-                    <Col lg={16} md={24} xs={24} className="list_left">
-                        <div className='left-title'>
-                           <p>最新发布</p>
-                           <div className='left-article'>
-                               <Bannerlist/>
-                            </div>                           
-                        </div>                       
+                    <Col lg={16} md={24} xs={24} className="list_left">              
+                        <div className='left-article'>
+                            <Bannerlist/>
+                        </div>                      
                     </Col>
                     <Col lg={{span:7,offset:1}} md={0} xs={0}>
                         <Aboutme />

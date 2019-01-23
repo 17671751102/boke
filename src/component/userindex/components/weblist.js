@@ -48,7 +48,7 @@ class WebList extends React.Component {
                 <Breadcrumb page='web前端'/>
                 <Row className="list antd-list">
                     <Col lg={16}  md={24} xs={24} className="list_left">
-                        <Javalistdetail listData={this.state.listData} ref={page=>this.page=page}/>
+                        <Javalistdetail listData={this.state.listData} ref={page=>this.page=page}>我是一个双标签</Javalistdetail>
                     </Col>
                     <Col lg={{span:7,offset:1}} md={0} xs={0}>
                         <Aboutme />

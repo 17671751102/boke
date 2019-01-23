@@ -6,13 +6,17 @@ const baseurl = (state, action) => {
     if (!state) return {
         baseurl: basePath,
         listreload: 0,
-        search:[]
+        search:[],
+        wztitle:'',
+        LoadMore:false
     }
     switch (action.type) {
         case 'CHANGE_COLOR':
             return { ...state, listreload: action.listreload }
-        case 'CHANGE_HOMELIST':
-            return {...state, search: action.search }
+        case 'CHANGE_TITLE':
+            return{...state, wztitle: action.wztitle}
+        case 'CHANGE_LIST':
+            return{...state, LoadMore:action.LoadMore}
         default:
             return state
     }

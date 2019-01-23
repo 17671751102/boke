@@ -27,32 +27,19 @@
         }
     }
     .linkmore{
-        list-style: none;
-        display: inline-block;
-        width: 100%;
-        margin: 0 auto;
-        padding: 0px 30px;
         text-align: center;
-        // float: left;
-        li{
-            display: inline-block;
-            // position: relative;
-            height: 56px;
-            width: 56px;
-            border: 2px solid #1a1a1a;
-            box-shadow: 0px 1px 0px #888;
-            border-radius: 28px;
-            margin: 0px 8px;
-            position: relative;
-            &:hover{
-                opacity: 0.5; 
-            }
+        padding: 0px 22px;
             .anticon{
-                position: absolute;
-                top: 6px;
-                left: 8px;
                 font-size: 36px;
                 cursor: pointer;
+                display: inline-block;
+                border: 2px solid #1a1a1a;
+                box-shadow: 0px 1px 0px #888;
+                border-radius: 100%;
+                padding: 10px;
+                &:hover{
+                    opacity: 0.5; 
+                }
             }
             .anticon-home{
                 color: #ef5509;
@@ -66,7 +53,7 @@
             .anticon-wechat{
                 color: #07AF12;
             }
-        }
+        
     }
 }
 .aboutme_fixed{

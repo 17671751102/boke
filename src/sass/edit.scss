@@ -1,0 +1,12 @@
+.ant-modal-body{
+    text-align: center;
+    .avatar-uploader{
+        display: inline-block;
+        margin-right: 15px;
+        &>.ant-upload{
+            // width: 250px;
+            // height: 250px;
+        }
+    }
+}
+

@@ -6,7 +6,15 @@ import axios from 'axios'
 // 用来转换axios参数格式与ajax格式一致
 import qs from 'qs'
 import '@css/detail.scss'
-import { Row, Col } from 'antd';
+import { Row, Col, Icon} from 'antd';
+import Biaoqian from '@js/userindex/components/biaoqian'
+import CommentList from '@js/userindex/components/comment/commentlist'
+const IconText = ({ type, text }) => (
+    <span>
+        <Icon type={type} style={{ marginRight: 8 }} />
+        {text}
+    </span>
+    );
 class Detail extends React.Component {
     constructor(){
         super()
@@ -29,11 +37,22 @@ class Detail extends React.Component {
                 op.push(
                     <div key='1' className="detail_content">
                         <h2>{json.data[0].wZTitle}</h2>
-                        <span>{new Date().getFullYear(json.data[0].fBTime.time)+'-'+(json.data[0].fBTime.month+1)+'-'+json.data[0].fBTime.date}</span><br/>
-                        <span>标签：{json.data[0].biaoQian}</span><br/>
-                        <span>作者：{json.data[0].userss.name}</span><br/>
-                        {json.data[0].wZurl?<span>转载：{json.data[0].wZurl}</span>:''}
-                        <div id='detail_message'></div>
+                        <Row>
+                            <Col span={24}>
+                                <Biaoqian value={json.data[0].biaoQian}/>
+                                {/* <span><Icon type="menu-fold" style={{paddingRight:'5px'}} />标签：{json.data[0].biaoQian}</span> */}
+                            </Col>
+                            <Col md={{span:7}} sm={{span:12}}>
+                                <span><Icon style={{paddingRight:'5px'}} type="clock-circle" />{new Date().getFullYear(json.data[0].fBTime.time)+'-'+(json.data[0].fBTime.month+1)+'-'+json.data[0].fBTime.date}</span>
+                            </Col>               
+                            <Col md={{span:7}} sm={{span:12}}>
+                                <span><IconText type="user" />作者：{json.data[0].userss.name}</span>
+                            </Col>
+                            <Col md={{span:10}} sm={{span:12}}>
+                                {json.data[0].wZurl?<span>转载：{json.data[0].wZurl}</span>:''}
+                            </Col>
+                        </Row>
+                        <div id='detail_message' className='w-e-text'></div>
                     </div>
                 )
                 this.setState({
@@ -65,6 +84,7 @@ class Detail extends React.Component {
                 <Row className="list antd-list">
                     <Col lg={16} md={24} xs={24} className="list_left">
                         {this.state.op}
+                        <CommentList />
                     </Col>
                     <Col lg={{span:7,offset:1}} md={0} xs={0}>
                         <Aboutme/>

@@ -17,14 +17,18 @@ import Delete from '@js/userindex/components/delete';
     </span>
     );
   class Bannerlist extends React.Component {
-    state = {
-      initLoading: true,
-      loading: false,
-      data: [],
-      list: [],
-      page:1,
-      pageSize:3,
-      bottom:false
+    constructor(props){
+      super(props)
+        this.state = {
+        initLoading: true,
+        loading: false,
+        data: [],
+        list: [],
+        page:1,
+        pageSize:3,
+        bottom:false,
+        switch:props.wztitle==''?null:1
+      }
     }
     componentDidMount() {
       this.getData((res) => {
@@ -33,22 +37,44 @@ import Delete from '@js/userindex/components/delete';
           data: res.data.wzlst,
           list: res.data.wzlst,
         });
-      });
+      })
     }
     componentWillReceiveProps(nextProps){
-      if(this.props.search!=nextProps.search){
-        this.setState({data:nextProps.search,list:nextProps.search})
+      if(this.props.wztitle!=nextProps.wztitle){
+        this.setState({
+          bottom: false,
+          switch:1
+        },()=>{
+          this.getData((res) => {
+            this.setState({
+              initLoading: false,
+              data: res.data.wzlst,
+              list: res.data.wzlst,
+            });
+          })
+        })
       }
     }
     getData = (callback,a) => {
-      axios.post(this.props.baseurl+'Blog/showWenZhangList.form',qs.stringify({
-        biaoQian:'',
-        dqy:this.state.page,
-        pageSize:a||this.state.pageSize
-      }))
-      .then((json)=>{
-        callback(json);
-      })
+      if(this.state.switch){
+        axios.post(this.props.baseurl+'Blog/selectWenZhangMoHu.form',qs.stringify({
+          wZTitle:this.props.wztitle,
+          dqy:this.state.page,
+          pageSize:a||this.state.pageSize
+        }))
+        .then((json)=>{
+          callback(json);
+        })
+      }else{
+        axios.post(this.props.baseurl+'Blog/showWenZhangList.form',qs.stringify({
+          biaoQian:'',
+          dqy:this.state.page,
+          pageSize:a||this.state.pageSize
+        }))
+        .then((json)=>{
+          callback(json);
+        })
+      }
     }
     onLoadMore = () => {
       this.setState({
@@ -73,6 +99,14 @@ import Delete from '@js/userindex/components/delete';
           });
         }
       },a);
+    }
+    componentWillReceiveProps(nextProps){
+      if(this.props.LoadMore!=nextProps.LoadMore){
+        if(nextProps.LoadMore==true){
+          this.onLoadMore()
+        }
+      }
+      
     }
     render() {
       var { initLoading, loading, list,bottom } = this.state;
@@ -99,14 +133,12 @@ import Delete from '@js/userindex/components/delete';
           dataSource={list}
           renderItem={abc => (
             <List.Item actions={[
-              // <span><IconText type="user" />{abc.userss.name}</span>,
-              <span><IconText type="clock-circle" />{new Date().getFullYear(abc.fBTime.time)+'-'+(abc.fBTime.month+1)+'-'+abc.fBTime.date}</span>,
               <IconText type="like-o" text="156" />,
               <IconText type="message" text="2" />,
               <IconText type="eye" text="168" />,
             ]}
             extra={sessionStorage.getItem('logtoken')?
-            <span><a className='edit'>编辑</a><span className='blank'>|
+            <span><Link to={`/admin_edit/${abc.wZId}`}>编辑</Link><span className='blank'>|
             </span><Delete/></span>:''
           }>
               <Skeleton avatar title={false} loading={abc.loading} active>
@@ -125,7 +157,8 @@ import Delete from '@js/userindex/components/delete';
   const mapStateToProps = (state) => {
     return {
       baseurl: state.baseurl,
-      search: state.search
+      wztitle:state.wztitle,
+      LoadMore: state.LoadMore
     }
   }
   Bannerlist = connect(mapStateToProps)(Bannerlist)

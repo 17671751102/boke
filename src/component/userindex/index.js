@@ -20,8 +20,17 @@ class Index extends React.Component {
         }
     }
     componentDidMount(){
-        // var body=document.getElementsByTagName('body')[0]
         window.onscroll=(e)=>{
+            var a =document.body.scrollHeight-document.body.clientHeight-document.documentElement.scrollTop
+            if(a<20){
+                if(this.props.onSwitchColor){
+                    this.props.onSwitchColor(true)
+                }
+            }else{
+                if(this.props.onSwitchColor){
+                    this.props.onSwitchColor(false)
+                }
+            }
             var list=document.getElementsByClassName('list')[0]
             var aboutme =document.getElementsByClassName('aboutme')[0]
             if(aboutme){
@@ -61,8 +70,16 @@ class Index extends React.Component {
 const mapStateToProps = (state) => {
     return {
       baseurl: state.baseurl,
-      eventleakurl:state.eventleakurl
+      eventleakurl:state.eventleakurl,
+      LoadMore:state.LoadMore
     }
 }
-Index = connect(mapStateToProps)(Index)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSwitchColor: (a) => {
+            dispatch({ type: 'CHANGE_LIST', LoadMore: a })
+        }
+    }
+}
+Index = connect(mapStateToProps,mapDispatchToProps)(Index)
 export default Index

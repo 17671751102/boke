@@ -15,75 +15,35 @@ class Addconsult_new extends React.Component {
     constructor(){
         super()
         this.state={
-            //定义上传文件
-            //fileList:[],  
-            //文件上传或删除完成
             textstatus:'done',
             // 标签
             tags: [],
             inputVisible: false,
             inputValue: '',
-            // // 真实名字
-            // AttackmentName:'',
-            // // 返回名字
-            // Annex:'',
-            //咨询来源
             origin:'1',
         }
     }
-    // // 文件上传
-    // beforeUpload(e,file, fileList){
-    //     // // 限制文件大小
-    //     if(e==0){
-    //         if (fileList[0].size>10485760 || fileList[0].size<=0) {
-    //             message.error('文件应在0-10M范围内')
-    //             return false
-    //         }
-    //         var endpoint = fileList[0].name.lastIndexOf(".");
-    //         var houzui = fileList[0].name.substring(endpoint, fileList[0].name.length).toLowerCase();
-    //         if(houzui!='.pdf'){
-    //             message.error('请按指定格式上传')
-    //             return false
-    //         }
-    //     }
-    // }
-    // //上传
-    // handleChange = (info) => {
-    //     let fileList = info.fileList;
-    //     // 只能上传一个文件
-    //     fileList = fileList.slice(-1);
-    //     // 限制文件大小
-    //     fileList = fileList.filter((file) => {
-    //         if (file.size>10485760 || file.size<=0) {
-    //             return false
-    //           }
-    //       var endpoint = file.name.lastIndexOf(".");
-	// 	    var houzui = file.name.substring(endpoint, file.name.length).toLowerCase();
-    //       if(houzui!='.jpg'&&houzui!='.gif'&&houzui!='.png'&&houzui!='.jpeg'&&houzui!='.doc'&&houzui!='.docx'&&houzui!='.zip'&&houzui!='.pdf'){
-    //         return false
-    //       }
-    //       this.setState({textstatus:fileList.length>0?fileList[0].status:'done'})
-    //       return true;
-    //     });
-    //     this.setState({ 
-    //         fileList
-    //     })
-    //     if(fileList.length>0){
-    //         if(fileList[0].response){
-    //             this.setState({Annex:fileList[0].response.message,AttackmentName:fileList[0].response.real_name})
-    //         }
-    //     }else{
-    //         this.setState({Annex:''})
-    //     }
-    // }
-    //    // 移除文件
-    //    onRemove (e){
-    //     if(e==0){
-    //         this.setState({
-    //             textstatus:'done'
-    //         });
-    //     } 
-    // }
+    componentDidMount(){
+        if(window.location.pathname!='/admin_edit/'){
+            this.Loadlist();
+        }
+    }
+    Loadlist=()=>{
+        axios.post(this.props.baseurl+'Blog/selectWenZhangById.form',qs.stringify({
+            wZId:window.location.pathname.split('/').pop(),
+        }))
+        .then((json)=>{
+            let tags =[];
+            tags =json.data[0].biaoQian.split(',');
+            const div =document.getElementsByClassName('w-e-text')[0]
+            div.innerHTML=json.data[0].wZText
+            this.setState({
+                inputValue:json.data[0],
+                tags:tags,
+                origin:json.data[0].YC
+            })
+        })
+    }
 
     // 网站验证
     checkUrl(rule, value, callback){
@@ -131,13 +91,16 @@ class Addconsult_new extends React.Component {
             if(!err){
                 var content=document.getElementsByClassName('w-e-text')[0].innerHTML
                 if(this.state.textstatus=='done'){
-                    axios.post(this.props.baseurl+'Blog/insertWenZhang.form',qs.stringify({
+                    var a=window.location.pathname!='/admin_edit/'?'Blog/updateWenZhang.form':'Blog/insertWenZhang.form'
+                    axios.post(this.props.baseurl+a,
+                        qs.stringify({
                         wZTitle:values.titles,
                         WZJJ:values.Desc,
                         biaoQian:this.state.tags.join(","),
                         YC:values.kkkk,
                         wZurl:values.link,
-                        wZText:content
+                        wZText:content,
+                        wZId:window.location.pathname!='/admin_edit/'?window.location.pathname.split('/').pop():''
                     }))
                     .then((json)=>{
                         if(json.data[0].status==1){
@@ -168,14 +131,16 @@ class Addconsult_new extends React.Component {
             <div className="addconsultbody">
                 <FormItem label="资讯标题" >
                     {getFieldDecorator('titles', {
-                        rules: [{ required: true, message: '请输入标题' },{ max: 50, message: '标题只能少于50字' }]
+                        rules: [{ required: true, message: '请输入标题' },{ max: 50, message: '标题只能少于50字' }],
+                        initialValue:this.state.inputValue.wZTitle
                     })(
                         <Input autoComplete="off" placeholder="请输入资讯标题 0/50字"/>
                     )}
                 </FormItem>
                 <FormItem label="资讯简介">
                 	{getFieldDecorator('Desc', {
-                        rules: [{ message: '请输入资讯简介'},{max:200,message:'最多只能输入200字'}]
+                        rules: [{ message: '请输入资讯简介'},{max:200,message:'最多只能输入200字'}],
+                        initialValue:this.state.inputValue.WZJJ
                     })(
                         <textarea placeholder="请输入资讯简介 0/200字"/>
                     )}
@@ -183,6 +148,7 @@ class Addconsult_new extends React.Component {
                 <FormItem label="资讯标签">
                    {getFieldDecorator('lable', {
                         rules: [{ message: ''}],
+                        initialValue:this.state.tags
                     })(
                         <div className="Lable">
                                 {tags.map((tag, index) => {
@@ -219,10 +185,11 @@ class Addconsult_new extends React.Component {
                 </FormItem>
                 <FormItem className="collection-create-form_last-form-item" label="资讯来源">
                     {getFieldDecorator('kkkk',{
-                        initialValue:'1'
+                        initialValue:this.state.inputValue.YC+''
+                        
                     })(
                         <Radio.Group onChange={this.onChange1.bind(this)}>
-                            <Radio value='1' checked='true'>原创</Radio>
+                            <Radio value='1'>原创</Radio>
                             <Radio value='2'>转载</Radio>
                             {/* <Radio value='2'>上传PDF文件</Radio> */}
                         </Radio.Group>
@@ -232,7 +199,8 @@ class Addconsult_new extends React.Component {
                 <div>
                     <FormItem label="资讯链接" >
                         {getFieldDecorator('link', {
-                            rules: [{ required: true, message: '请输入网站域名' },{validator:this.checkUrl}]
+                            rules: [{ required: true, message: '请输入网站域名' },{validator:this.checkUrl}],
+                            initialValue:this.state.inputValue.wZurl
                         })(
                             <Input autoComplete="off" placeholder="http://xxxx or https://xxx"/>
                         )}
@@ -245,21 +213,6 @@ class Addconsult_new extends React.Component {
                         )}
                     </FormItem>
                 </div>:''}
-                {/* {this.state.origin==3?
-                <div>
-                    <FormItem extra="支持pdf格式，大小在10M以内的文件" label="PDF文件上传">
-                        {getFieldDecorator('Annex')(
-                            <Upload name="logo" action={this.props.baseurl+"index.php/Index/index/upload_file"} 
-                            beforeUpload={this.beforeUpload.bind(this,'0')} onChange={this.handleChange} 
-                            onRemove={this.onRemove.bind(this,'0')}
-                            fileList={this.state.fileList} accept='.pdf'>
-                                <Button>
-                                    <Icon type="upload" /> 选择文件
-                                </Button>
-                            </Upload>
-                        )}
-                    </FormItem>
-                </div>:''} */}
                 {this.state.origin==1?
                 <div>
                     <FormItem label="资讯内容">
