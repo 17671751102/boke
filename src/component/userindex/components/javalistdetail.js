@@ -34,7 +34,7 @@ class Javalistdetail extends React.Component {
                     <span><IconText type="user" />{item.userss.name}</span>,
                     <IconText type="like-o" text="156" />, <IconText type="message" text="2" />,
                     sessionStorage.getItem('logtoken')?
-                    <span style={{marginLeft:30}}><a className='edit'>编辑</a><span className='blank'>|
+                    <span style={{marginLeft:30}}><Link to={`/admin_edit/${item.wZId}`}>编辑</Link><span className='blank'>|
                     </span><Delete/></span>:'']}
                     extra={<img width={272} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
                 >
@@ -43,6 +43,7 @@ class Javalistdetail extends React.Component {
                     title={<Link to={`/java/${item.wZId}`}>{item.wZTitle}</Link>}
                     description={item.WZJJ}
                     />
+                    {this.props.children}
                 </List.Item>
                 )}
             />

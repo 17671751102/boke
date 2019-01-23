@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from 'antd';
+import { Icon, Row, Col } from 'antd';
 import '@css/aboutme.scss';
 import Modallink from '@js/userindex/components/modallink'
 import wechat from '@css/img/wechat.jpg'
@@ -18,22 +18,22 @@ class Aboutme extends React.Component{
                     <p>Wechat：haidixiongdi</p>
                     <p>Email：haidixiongdi@163.com</p>
                 </div>
-                <ul className='linkmore'>
-                    <li>
+                <Row className='linkmore' type="flex" justify="space-around">
+                    <Col span={4}>
                         <Link to={'/'} title='公告'>
                             <Icon type="home" />
                         </Link>                        
-                    </li>
-                    <li>
+                    </Col>
+                    <Col span={4}>
                         <Modallink type="wechat" url={wechat}/>                      
-                    </li>
-                    <li> 
+                    </Col>
+                    <Col span={4}> 
                         <Modallink type="qq" url={QQ}/>                      
-                    </li>
-                    <li>
+                    </Col>
+                    <Col span={4}>
                         <Modallink type="weibo" url={weibo}/>      
-                    </li>
-                </ul>
+                    </Col>
+                </Row>
             </div>
         )
     }

@@ -37,7 +37,7 @@ import Delete from '@js/userindex/components/delete';
           data: res.data.wzlst,
           list: res.data.wzlst,
         });
-      });
+      })
     }
     componentWillReceiveProps(nextProps){
       if(this.props.wztitle!=nextProps.wztitle){
@@ -100,6 +100,14 @@ import Delete from '@js/userindex/components/delete';
         }
       },a);
     }
+    componentWillReceiveProps(nextProps){
+      if(this.props.LoadMore!=nextProps.LoadMore){
+        if(nextProps.LoadMore==true){
+          this.onLoadMore()
+        }
+      }
+      
+    }
     render() {
       var { initLoading, loading, list,bottom } = this.state;
       const loadMore = !initLoading && !loading&&!bottom ? (
@@ -130,7 +138,7 @@ import Delete from '@js/userindex/components/delete';
               <IconText type="eye" text="168" />,
             ]}
             extra={sessionStorage.getItem('logtoken')?
-            <span><a className='edit'>编辑</a><span className='blank'>|
+            <span><Link to={`/admin_edit/${abc.wZId}`}>编辑</Link><span className='blank'>|
             </span><Delete/></span>:''
           }>
               <Skeleton avatar title={false} loading={abc.loading} active>
@@ -149,7 +157,8 @@ import Delete from '@js/userindex/components/delete';
   const mapStateToProps = (state) => {
     return {
       baseurl: state.baseurl,
-      wztitle:state.wztitle
+      wztitle:state.wztitle,
+      LoadMore: state.LoadMore
     }
   }
   Bannerlist = connect(mapStateToProps)(Bannerlist)
