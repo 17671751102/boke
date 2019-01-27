@@ -9,6 +9,7 @@ import '@css/detail.scss'
 import { Row, Col, Icon} from 'antd';
 import Biaoqian from '@js/userindex/components/biaoqian'
 import CommentList from '@js/userindex/components/comment/commentlist'
+import $ from 'jquery'
 const IconText = ({ type, text }) => (
     <span>
         <Icon type={type} style={{ marginRight: 8 }} />
@@ -29,16 +30,28 @@ class Detail extends React.Component {
         this.loadIp()
     }
     loadIp=()=>{
-        axios.get('http://pv.sohu.com/cityjson?ie=utf-8').then(
-            (json)=>{
-                if(json){
-                    var data=json.data.split('"')
-                    this.setState({ip:data[3]},()=>{
-                        this.Loadlist()
-                    })
-                }
+        $.ajax({
+            url:'http://pv.sohu.com/cityjson?ie=utf-8',
+            type:'get',
+            dataType:'text',
+            success:(json)=>{
+                var data=json.split('"')
+                this.setState({ip:data[3]},()=>{
+                    this.Loadlist()
+                })
             }
-        )
+        })
+        // axios.get('http://pv.sohu.com/cityjson?ie=utf-8').then(
+        //     (json)=>{
+        //         console.log(json)
+        //         if(json){
+        //             var data=json.data.split('"')
+        //             this.setState({ip:data[3]},()=>{
+        //                 this.Loadlist()
+        //             })
+        //         }
+        //     }
+        // )
     }
     likeClick =(e)=>{
         axios.post(this.props.baseurl+this.state.status?'Blog/dianZanWenZhang.form':
