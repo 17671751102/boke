@@ -1,24 +1,33 @@
 import React from 'react';
-import { Modal} from 'antd';
+import { Modal,message} from 'antd';
+import axios from 'axios';
+import qs from 'qs';
+import { connect } from 'react-redux';
 
 const confirm = Modal.confirm;
 class Delete extends React.Component{
-    showDeleteConfirm=()=> {      
-    confirm({
+    showDeleteConfirm=()=> {     
+        confirm(this.a);
+    }
+    a={
         title: '是否确定删除此文章?',
-        // content: 'Some descriptions',
         okText: '是',
         okType: 'danger',
         cancelText: '否',
-        onOk() {
-        console.log('OK');
+        onOk:()=>{
+            axios.post(this.props.baseurl+'Blog/deleteWenZhangById.form',qs.stringify({
+                wZId: this.props.id           
+            }))
+            .then((json)=>{
+                console.log(json)
+            },(json)=>{
+                message.error('链接失败')
+            })
         },
-        onCancel() {
+        onCancel:()=>{
         console.log('Cancel');
         },
-    });
     }
-
     render(){
         return(
            <div style={{display:'inline-block'}}>
@@ -29,4 +38,10 @@ class Delete extends React.Component{
         )
     }    
 }
+const mapStateToProps = (state) => {
+    return {
+      baseurl: state.baseurl
+    }
+}
+Delete = connect(mapStateToProps)(Delete)
 export default Delete;
