@@ -22,7 +22,7 @@ class Index extends React.Component {
     componentDidMount(){
         window.onscroll=(e)=>{
             var a =document.body.scrollHeight-document.body.clientHeight-document.documentElement.scrollTop
-            if(a<20){
+            if(a==0){
                 if(this.props.onSwitchColor){
                     this.props.onSwitchColor(true)
                 }
@@ -45,7 +45,7 @@ class Index extends React.Component {
     }
     render(){
         return(
-            <div>
+            <div style={{paddingTop:50}}>
                 {/* <Water/> */}
                 <Menu history={this.props.history}/>
                 <Switch>

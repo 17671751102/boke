@@ -31,7 +31,7 @@ class Javalistdetail extends React.Component {
                 <List.Item
                     key={item.wZId}
                     actions={[
-                    <span><IconText type="user" />{item.userss.name}</span>,
+                    <span><IconText type="user" />{item.users.usName}</span>,
                     <IconText type="like-o" text="156" />, <IconText type="message" text="2" />,
                     sessionStorage.getItem('logtoken')?
                     <span style={{marginLeft:30}}><Link to={`/admin_edit/${item.wZId}`}>编辑</Link><span className='blank'>|

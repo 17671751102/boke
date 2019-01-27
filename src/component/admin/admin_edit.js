@@ -1,6 +1,5 @@
 import React from 'react';
-import { Modal, Button,message , Form, Input,Upload,Icon,Select,Radio,Tag, Tooltip } from 'antd';
-import { NavLink} from 'react-router-dom';
+import {  Button,message , Form, Input,Icon,Select,Radio,Tag, Tooltip } from 'antd';
 import { connect } from 'react-redux'
 // import RadioButton from 'antd/lib/radio/radioButton';
 // 富文本编辑器/资讯内容
