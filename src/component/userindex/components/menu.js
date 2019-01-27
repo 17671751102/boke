@@ -17,16 +17,17 @@ class Menu extends React.Component {
             if(e.target.value=='admin_login'){
                 this.props.history.push('/admin_login')
             }else{
+                if(this.props.onChangeTitle){
+                    var c=e.target.value
+                    this.props.onChangeTitle(c)
+                }
                 const nav=document.getElementById('ywl_nav').getElementsByTagName('a')
                 for(let i =0;i<nav.length;i++){
                     nav[i].className=''
                 }
                 nav[0].className='active'
                 this.props.history.push('/')
-                if(this.props.onChangeTitle){
-                    var c=e.target.value
-                    this.props.onChangeTitle(c)
-                }
+                
             }
         }
     }

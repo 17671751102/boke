@@ -54,6 +54,11 @@ import Delete from '@js/userindex/components/delete';
           })
         })
       }
+      if(this.props.LoadMore!=nextProps.LoadMore){
+        if(nextProps.LoadMore==true){
+          this.onLoadMore()
+        }
+      }
     }
     getData = (callback,a) => {
       if(this.state.switch){
@@ -100,14 +105,6 @@ import Delete from '@js/userindex/components/delete';
         }
       },a);
     }
-    componentWillReceiveProps(nextProps){
-      if(this.props.LoadMore!=nextProps.LoadMore){
-        if(nextProps.LoadMore==true){
-          this.onLoadMore()
-        }
-      }
-      
-    }
     render() {
       var { initLoading, loading, list,bottom } = this.state;
       const loadMore = !initLoading && !loading&&!bottom ? (
@@ -133,13 +130,13 @@ import Delete from '@js/userindex/components/delete';
           dataSource={list}
           renderItem={abc => (
             <List.Item actions={[
-              <IconText type="like-o" text="156" />,
+              <IconText type="like-o" text={abc.zan}/>,
               <IconText type="message" text="2" />,
-              <IconText type="eye" text="168" />,
+              <IconText type="eye" text={abc.see} />,
             ]}
             extra={sessionStorage.getItem('logtoken')?
             <span><Link to={`/admin_edit/${abc.wZId}`}>编辑</Link><span className='blank'>|
-            </span><Delete/></span>:''
+            </span><Delete id={abc.wZId}/></span>:''
           }>
               <Skeleton avatar title={false} loading={abc.loading} active>
                 <List.Item.Meta
