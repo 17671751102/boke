@@ -25,7 +25,6 @@ class Detail extends React.Component {
     }
     componentDidMount(){
         this.Loadlist()
-        console.log(this)
     }
     Loadlist=()=>{
         axios.post(this.props.baseurl+'Blog/selectWenZhangById.form',qs.stringify({
@@ -46,7 +45,7 @@ class Detail extends React.Component {
                                 <span><Icon style={{paddingRight:'5px'}} type="clock-circle" />{new Date().getFullYear(json.data[0].fBTime.time)+'-'+(json.data[0].fBTime.month+1)+'-'+json.data[0].fBTime.date}</span>
                             </Col>               
                             <Col md={{span:7}} sm={{span:12}}>
-                                <span><IconText type="user" />作者：{json.data[0].userss.name}</span>
+                                <span><IconText type="user" />作者：{json.data[0].users.usName}</span>
                             </Col>
                             <Col md={{span:10}} sm={{span:12}}>
                                 {json.data[0].wZurl?<span>转载：{json.data[0].wZurl}</span>:''}
