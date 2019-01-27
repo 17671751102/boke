@@ -30,11 +30,16 @@ class Detail extends React.Component {
         this.loadIp()
     }
     loadIp=()=>{
-        $.ajax({
+        // $.getJSON("http://www.geoplugin.net/json.gp?jsoncallback=?%27", function(data) {
+        //     console.log(JSON.stringify(data, null, 2));
+        // });
+        $.getJSON({
             url:'http://pv.sohu.com/cityjson?ie=utf-8',
             type:'get',
             dataType:'text',
             success:(json)=>{
+                console.log(json)
+                console.log(this)
                 var data=json.split('"')
                 this.setState({ip:data[3]},()=>{
                     this.Loadlist()
