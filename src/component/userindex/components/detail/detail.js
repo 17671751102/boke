@@ -35,13 +35,21 @@ class Detail extends React.Component {
           ip:document.getElementById('ywl_hide').innerHTML  
         }))
         .then((json)=>{
-            this.setState({status:!this.state.status})
+            this.setState({status:!this.state.status},()=>{
+                this.reloadlist()
+            })
         })
-      }
+    }
+    reloadlist=()=>{
+        if(this.props.onSwitchColor){
+            let a=this.props.listreload++
+            this.props.onSwitchColor(a)
+        }
+    }
     Loadlist=()=>{
         axios.post(this.props.baseurl+'Blog/selectWenZhangById.form',qs.stringify({
             wZId:window.location.pathname.split('/').pop(),
-            ip:document.getElementById('ywl_hide').innerHTML  
+            ip:document.getElementById('ywl_hide').innerHTML
         }))
         .then((json)=>{
             var op=[]
@@ -113,8 +121,16 @@ class Detail extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-      baseurl: state.baseurl
+      baseurl: state.baseurl,
+      listreload: state.listreload
     }
 }
-Detail = connect(mapStateToProps)(Detail)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSwitchColor: (a) => {
+            dispatch({ type: 'CHANGE_COLOR', listreload: a })
+        }
+    }
+}
+Detail = connect(mapStateToProps,mapDispatchToProps)(Detail)
 export default Detail

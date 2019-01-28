@@ -40,7 +40,7 @@ import Delete from '@js/userindex/components/delete';
       })
     }
     componentWillReceiveProps(nextProps){
-      if(this.props.wztitle!=nextProps.wztitle){
+      if(this.props.wztitle!=nextProps.wztitle||this.props.listreload!=nextProps.listreload){
         this.setState({
           bottom: false,
           switch:1
@@ -155,7 +155,8 @@ import Delete from '@js/userindex/components/delete';
     return {
       baseurl: state.baseurl,
       wztitle:state.wztitle,
-      LoadMore: state.LoadMore
+      LoadMore: state.LoadMore,
+      listreload: state.listreload
     }
   }
   Bannerlist = connect(mapStateToProps)(Bannerlist)

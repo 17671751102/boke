@@ -22,7 +22,7 @@ class Delete extends React.Component{
                 if(json){
                     if(json.data[0].status==1){
                         message.success(json.data[0].message)
-
+                        this.reloadlist()
                     }else{
                         message.error(json.data[0].message)
                     }
@@ -34,6 +34,14 @@ class Delete extends React.Component{
         onCancel:()=>{
 
         },
+    }
+    reloadlist=()=>{
+        if(this.props.onSwitchColor){
+            let a=this.props.listreload
+            a++
+            this.props.onSwitchColor(a)
+            console.log(this.props.listreload)
+        }
     }
     render(){
         return(
@@ -47,8 +55,16 @@ class Delete extends React.Component{
 }
 const mapStateToProps = (state) => {
     return {
-      baseurl: state.baseurl
+      baseurl: state.baseurl,
+      listreload: state.listreload
     }
 }
-Delete = connect(mapStateToProps)(Delete)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSwitchColor: (a) => {
+            dispatch({ type: 'CHANGE_COLOR', listreload: a })
+        }
+    }
+}
+Delete = connect(mapStateToProps,mapDispatchToProps)(Delete)
 export default Delete;

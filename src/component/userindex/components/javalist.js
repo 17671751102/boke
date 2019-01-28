@@ -14,16 +14,18 @@ class JavaList extends React.Component {
     constructor(){
         super()
         this.state={
-            listData:[]
+            listData:[],
+            page:1
         }
     }
     componentDidMount(){
+        
         this.Loadlist()
     }
     Loadlist=()=>{
         axios.post(this.props.baseurl+'Blog/showWenZhangList.form',qs.stringify({
             biaoQian:'java',
-            dqy:this.page.state.page,
+            dqy:this.state.page,
             pageSize:6
         }))
         .then((json)=>{
@@ -42,13 +44,23 @@ class JavaList extends React.Component {
             pageSize:size
         },()=>{this.Loadlist()})
     }
+    handlepage=(e)=>{
+        this.setState({page:e},()=>{
+            this.Loadlist()
+        })
+    }
+    componentWillReceiveProps(nextProps){
+        if(this.props.listreload!=nextProps.listreload){
+            this.Loadlist()
+        }
+    }
     render(){
         return(
             <Row className="content">
                 <Breadcrumb page='Java'/>
                 <Row className="list antd-list">
                     <Col lg={16}  md={24} xs={24} className="list_left">
-                        <Javalistdetail listData={this.state.listData} ref={page=>this.page=page}>我是一个双标签</Javalistdetail>
+                        <Javalistdetail listData={this.state.listData} page={this.handlepage}>我是一个双标签</Javalistdetail>
                     </Col>
                     <Col lg={{span:7,offset:1}} md={0} xs={0}>
                         <Aboutme />
@@ -61,7 +73,8 @@ class JavaList extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-      baseurl: state.baseurl
+      baseurl: state.baseurl,
+      listreload: state.listreload
     }
 }
 JavaList = connect(mapStateToProps)(JavaList)

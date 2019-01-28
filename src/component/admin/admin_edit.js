@@ -18,7 +18,7 @@ class Addconsult_new extends React.Component {
             // 标签
             tags: [],
             inputVisible: false,
-            inputValue: '',
+            inputValues: '',
             origin:'1',
         }
     }
@@ -28,18 +28,21 @@ class Addconsult_new extends React.Component {
         }
     }
     Loadlist=()=>{
+        
         axios.post(this.props.baseurl+'Blog/selectWenZhangById.form',qs.stringify({
             wZId:window.location.pathname.split('/').pop(),
         }))
         .then((json)=>{
             let tags =[];
             tags =json.data[0].biaoQian.split(',');
+            console.log(tags)
             const div =document.getElementsByClassName('w-e-text')[0]
             div.innerHTML=json.data[0].wZText
             this.setState({
-                inputValue:json.data[0],
+                inputValues:json.data[0],
                 tags:tags,
-                origin:json.data[0].YC
+                origin:json.data[0].YC,
+                inputValue:''
             })
         })
     }
@@ -122,7 +125,7 @@ class Addconsult_new extends React.Component {
     }
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { tags, inputVisible, inputValue } = this.state;
+    const { tags, inputVisible, inputValues,inputValue } = this.state;
     // const { goBack } = this.props.history
     return (
       <div className='addfrom'>
@@ -131,7 +134,7 @@ class Addconsult_new extends React.Component {
                 <FormItem label="资讯标题" >
                     {getFieldDecorator('titles', {
                         rules: [{ required: true, message: '请输入标题' },{ max: 50, message: '标题只能少于50字' }],
-                        initialValue:this.state.inputValue.wZTitle
+                        initialValue:inputValues.wZTitle
                     })(
                         <Input autoComplete="off" placeholder="请输入资讯标题 0/50字"/>
                     )}
@@ -139,7 +142,7 @@ class Addconsult_new extends React.Component {
                 <FormItem label="资讯简介">
                 	{getFieldDecorator('Desc', {
                         rules: [{ message: '请输入资讯简介'},{max:200,message:'最多只能输入200字'}],
-                        initialValue:this.state.inputValue.WZJJ
+                        initialValue:inputValues.WZJJ
                     })(
                         <textarea placeholder="请输入资讯简介 0/200字"/>
                     )}
@@ -147,7 +150,7 @@ class Addconsult_new extends React.Component {
                 <FormItem label="资讯标签">
                    {getFieldDecorator('lable', {
                         rules: [{ message: ''}],
-                        initialValue:this.state.tags
+                        initialValue:tags
                     })(
                         <div className="Lable">
                                 {tags.map((tag, index) => {
@@ -184,7 +187,7 @@ class Addconsult_new extends React.Component {
                 </FormItem>
                 <FormItem className="collection-create-form_last-form-item" label="资讯来源">
                     {getFieldDecorator('kkkk',{
-                        initialValue:this.state.inputValue.YC+''
+                        initialValue:inputValues.YC+''
                         
                     })(
                         <Radio.Group onChange={this.onChange1.bind(this)}>
@@ -199,7 +202,7 @@ class Addconsult_new extends React.Component {
                     <FormItem label="资讯链接" >
                         {getFieldDecorator('link', {
                             rules: [{ required: true, message: '请输入网站域名' },{validator:this.checkUrl}],
-                            initialValue:this.state.inputValue.wZurl
+                            initialValue:inputValues.wZurl
                         })(
                             <Input autoComplete="off" placeholder="http://xxxx or https://xxx"/>
                         )}

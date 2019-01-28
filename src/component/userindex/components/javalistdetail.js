@@ -2,6 +2,7 @@ import React from 'react';
 import { List, Avatar, Icon } from 'antd';
 import {Link} from 'react-router-dom'
 import Delete from '@js/userindex/components/delete';
+import { connect } from 'react-redux'
 const IconText = ({ type, text }) => (
     <span>
         <Icon type={type} style={{ marginRight: 8 }} />
@@ -9,12 +10,6 @@ const IconText = ({ type, text }) => (
     </span>
     );
 class Javalistdetail extends React.Component {
-    constructor(){
-        super()
-        this.state={
-            page:1
-        }
-    }
     render(){
         return(
             <List
@@ -22,9 +17,11 @@ class Javalistdetail extends React.Component {
                 size="large"
                 pagination={{
                 onChange: (page) => {
-                    this.setState({page:page})
+                    console.log(page)
+                    this.props.page(page)
                 },
                 pageSize: 6,
+                // total:7
                 }}
                 dataSource={this.props.listData}
                 renderItem={item => (
@@ -50,4 +47,10 @@ class Javalistdetail extends React.Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+      baseurl: state.baseurl
+    }
+}
+Javalistdetail = connect(mapStateToProps)(Javalistdetail)
 export default Javalistdetail
