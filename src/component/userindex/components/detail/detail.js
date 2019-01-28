@@ -29,8 +29,8 @@ class Detail extends React.Component {
         this.Loadlist()
     }
     likeClick =(e)=>{
-        axios.post(this.props.baseurl+this.state.status?'Blog/dianZanWenZhang.form':
-        'Blog/quXiaodianZanWenZhang.form',qs.stringify({
+        axios.post(this.props.baseurl+(this.state.status?'Blog/quXiaodianZanWenZhang.form':
+        'Blog/dianZanWenZhang.form'),qs.stringify({
           wZId: e,
           ip:document.getElementById('ywl_hide').innerHTML  
         }))
@@ -42,7 +42,8 @@ class Detail extends React.Component {
     }
     reloadlist=()=>{
         if(this.props.onSwitchColor){
-            let a=this.props.listreload++
+            let a=this.props.listreload
+            a++
             this.props.onSwitchColor(a)
         }
     }
