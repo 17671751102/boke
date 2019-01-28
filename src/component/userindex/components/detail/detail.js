@@ -9,7 +9,6 @@ import '@css/detail.scss'
 import { Row, Col, Icon} from 'antd';
 import Biaoqian from '@js/userindex/components/biaoqian'
 import CommentList from '@js/userindex/components/comment/commentlist'
-import $ from 'jquery'
 const IconText = ({ type, text }) => (
     <span>
         <Icon type={type} style={{ marginRight: 8 }} />
@@ -27,52 +26,22 @@ class Detail extends React.Component {
         }
     }
     componentDidMount(){
-        this.loadIp()
-    }
-    loadIp=()=>{
-        // $.getJSON("http://www.geoplugin.net/json.gp?jsoncallback=?%27", function(data) {
-        //     console.log(JSON.stringify(data, null, 2));
-        // });
-        $.getJSON({
-            url:'http://pv.sohu.com/cityjson?ie=utf-8',
-            type:'get',
-            dataType:'text',
-            success:(json)=>{
-                console.log(json)
-                console.log(this)
-                var data=json.split('"')
-                this.setState({ip:data[3]},()=>{
-                    this.Loadlist()
-                })
-            }
-        })
-        // axios.get('http://pv.sohu.com/cityjson?ie=utf-8').then(
-        //     (json)=>{
-        //         console.log(json)
-        //         if(json){
-        //             var data=json.data.split('"')
-        //             this.setState({ip:data[3]},()=>{
-        //                 this.Loadlist()
-        //             })
-        //         }
-        //     }
-        // )
+        this.Loadlist()
     }
     likeClick =(e)=>{
         axios.post(this.props.baseurl+this.state.status?'Blog/dianZanWenZhang.form':
         'Blog/quXiaodianZanWenZhang.form',qs.stringify({
           wZId: e,
-          ip:this.state.ip   
+          ip:document.getElementById('ywl_hide').innerHTML  
         }))
         .then((json)=>{
             this.setState({status:!this.state.status})
-            console.log(json)
         })
       }
     Loadlist=()=>{
         axios.post(this.props.baseurl+'Blog/selectWenZhangById.form',qs.stringify({
             wZId:window.location.pathname.split('/').pop(),
-            ip:this.state.ip
+            ip:document.getElementById('ywl_hide').innerHTML  
         }))
         .then((json)=>{
             var op=[]

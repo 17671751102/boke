@@ -15,17 +15,24 @@ class Delete extends React.Component{
         okType: 'danger',
         cancelText: '否',
         onOk:()=>{
-            axios.post(this.props.baseurl+'Blog/deleteWenZhangById.form',qs.stringify({
+            axios.post(this.props.baseurl+'Blog/deleteWenZhang.form',qs.stringify({
                 wZId: this.props.id           
             }))
             .then((json)=>{
-                console.log(json)
+                if(json){
+                    if(json.data[0].status==1){
+                        message.success(json.data[0].message)
+
+                    }else{
+                        message.error(json.data[0].message)
+                    }
+                }
             },(json)=>{
                 message.error('链接失败')
             })
         },
         onCancel:()=>{
-        console.log('Cancel');
+
         },
     }
     render(){

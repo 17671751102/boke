@@ -11,7 +11,6 @@ import Menu from '@js/userindex/components/menu'
 import Detail from '@js/userindex/components/detail/detail'
 import Notfound from '../../404'
 import Footer from '@js/userindex/components/footer'
-// import Water from '../../water/water'
 class Index extends React.Component {
     constructor(){
         super()
@@ -46,7 +45,6 @@ class Index extends React.Component {
     render(){
         return(
             <div style={{paddingTop:50}}>
-                {/* <Water/> */}
                 <Menu history={this.props.history}/>
                 <Switch>
                     <Route exact path='/' component={List}/>
