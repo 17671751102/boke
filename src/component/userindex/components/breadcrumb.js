@@ -26,7 +26,7 @@ class Breadcrumb extends React.Component {
             <div className="breadcrumb">
                 {/* <input  type="text" value={this.state.val} onChange={this.handleText}/>
                 <span>当前输入：{this.state.val}</span><br/> */}
-                当前位置：<span>{this.props.page}</span>
+                当前位置：<span> <Link to={this.props.paths}> {this.props.page} </Link></span>
             </div>
         )
     }

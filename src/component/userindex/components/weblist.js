@@ -56,10 +56,10 @@ class WebList extends React.Component {
     render(){
         return(
             <Row className="content">
-                <Breadcrumb page='web前端'/>
+                <Breadcrumb page='web前端' paths='/web'/>
                 <Row className="list antd-list">
                     <Col lg={16}  md={24} xs={24} className="list_left">
-                        <Javalistdetail listData={this.state.listData} page={this.handlepage}>我是一个双标签</Javalistdetail>
+                        <Javalistdetail listData={this.state.listData} page={this.handlepage} type='web'>我是一个双标签</Javalistdetail>
                     </Col>
                     <Col lg={{span:7,offset:1}} md={0} xs={0}>
                         <Aboutme />

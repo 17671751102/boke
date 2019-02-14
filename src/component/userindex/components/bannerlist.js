@@ -131,7 +131,7 @@ import Delete from '@js/userindex/components/delete';
           renderItem={abc => (
             <List.Item actions={[
               <IconText type="like-o" text={abc.zan}/>,
-              <IconText type="message" text="2" />,
+              // <IconText type="message" text="2" />,
               <IconText type="eye" text={abc.see} />,
             ]}
             extra={sessionStorage.getItem('logtoken')?

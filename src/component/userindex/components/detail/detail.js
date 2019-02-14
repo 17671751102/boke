@@ -6,7 +6,7 @@ import axios from 'axios'
 // 用来转换axios参数格式与ajax格式一致
 import qs from 'qs'
 import '@css/detail.scss'
-import { Row, Col, Icon} from 'antd';
+import { Row, Col, Icon,message} from 'antd';
 import Biaoqian from '@js/userindex/components/biaoqian'
 import CommentList from '@js/userindex/components/comment/commentlist'
 const IconText = ({ type, text }) => (
@@ -36,6 +36,12 @@ class Detail extends React.Component {
         }))
         .then((json)=>{
             this.setState({status:!this.state.status},()=>{
+                if(this.state.status){
+                    message.success(json.data.state)
+                }else{
+                    message.error(json.data.state)
+                }
+                this.Loadlist()
                 this.reloadlist()
             })
         })
@@ -57,31 +63,31 @@ class Detail extends React.Component {
             if(json){
                 op.push(
                     <div key='1' className="detail_content">
-                        <h2>{json.data[0].wZTitle}</h2>
+                        <h2>{json.data.dqwz.wZTitle}</h2>
                         <Row>
                             <Col span={24}>
-                                <Biaoqian value={json.data[0].biaoQian}/>
-                                {/* <span><Icon type="menu-fold" style={{paddingRight:'5px'}} />标签：{json.data[0].biaoQian}</span> */}
+                                <Biaoqian value={json.data.dqwz.biaoQian}/>
+                                {/* <span><Icon type="menu-fold" style={{paddingRight:'5px'}} />标签：{json.data.dqwz.biaoQian}</span> */}
                             </Col>
                             <Col md={{span:7}} sm={{span:12}}>
-                                <span><Icon style={{paddingRight:'5px'}} type="clock-circle" />{new Date().getFullYear(json.data[0].fBTime.time)+'-'+(json.data[0].fBTime.month+1)+'-'+json.data[0].fBTime.date}</span>
+                                <span><Icon style={{paddingRight:'5px'}} type="clock-circle" />{new Date().getFullYear(json.data.dqwz.fBTime.time)+'-'+(json.data.dqwz.fBTime.month+1)+'-'+json.data.dqwz.fBTime.date}</span>
                             </Col>               
                             <Col md={{span:7}} sm={{span:12}}>
-                                <span><IconText type="user" />作者：{json.data[0].users.usName}</span>
+                                <span><IconText type="user" />作者：{json.data.dqwz.users.usName}</span>
                             </Col>
                             <Col md={{span:10}} sm={{span:12}}>
-                                {json.data[0].wZurl?<span>转载：{json.data[0].wZurl}</span>:''}
+                                {json.data.dqwz.wZurl?<span>转载：{json.data.dqwz.wZurl}</span>:''}
                             </Col>
                         </Row>
                         <div id='detail_message' className='w-e-text' style={{marginBottom:15}}></div>
-                        <Icon type="like-o"onClick={this.likeClick.bind(this,json.data[0].wZId)} /><span>{json.data[0].zan}</span>
+                        <Icon type="like-o"onClick={this.likeClick.bind(this,json.data.dqwz.wZId)} /><span>{json.data.dqwz.zan}</span>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <Icon type="message"/><span>{json.data[0].zan}</span>
+                        <Icon type="message"/><span>{json.data.dqlyl.length}</span>
                     </div>
                 )
                 this.setState({
                     op:op,
-                    message:json.data[0].wZText
+                    message:json.data.dqwz.wZText
                 },()=>{
                     var message=document.getElementById('detail_message')
                     message.innerHTML=this.state.message
@@ -104,11 +110,10 @@ class Detail extends React.Component {
     render(){
         return(
             <div className="content">
-                <Breadcrumb page={this.props.message}/>
+                <Breadcrumb page={this.props.message} paths={this.props.paths}/>
                 <Row className="list antd-list">
                     <Col lg={16} md={24} xs={24} className="list_left">
                         {this.state.op}
-                        
                         <CommentList />
                     </Col>
                     <Col lg={{span:7,offset:1}} md={0} xs={0}>
