@@ -14,7 +14,8 @@ class WebList extends React.Component {
     constructor(){
         super()
         this.state={
-            listData:[]
+            listData:[],
+            page:1
         }
     }
     componentDidMount(){
@@ -23,7 +24,7 @@ class WebList extends React.Component {
     Loadlist=()=>{
         axios.post(this.props.baseurl+'Blog/showWenZhangList.form',qs.stringify({
             biaoQian:'前端',
-            dqy:this.page.state.page,
+            dqy:this.state.page,
             pageSize:6,
         }))
         .then((json)=>{
@@ -42,13 +43,23 @@ class WebList extends React.Component {
             pageSize:size
         },()=>{this.Loadlist()})
     }
+    handlepage=(e)=>{
+        this.setState({page:e},()=>{
+            this.Loadlist()
+        })
+    }
+    componentWillReceiveProps(nextProps){
+        if(this.props.listreload!=nextProps.listreload){
+            this.Loadlist()
+        }
+    }
     render(){
         return(
             <Row className="content">
-                <Breadcrumb page='web前端'/>
+                <Breadcrumb page='web前端' paths='/web'/>
                 <Row className="list antd-list">
                     <Col lg={16}  md={24} xs={24} className="list_left">
-                        <Javalistdetail listData={this.state.listData} ref={page=>this.page=page}>我是一个双标签</Javalistdetail>
+                        <Javalistdetail listData={this.state.listData} page={this.handlepage} type='web'>我是一个双标签</Javalistdetail>
                     </Col>
                     <Col lg={{span:7,offset:1}} md={0} xs={0}>
                         <Aboutme />
@@ -61,7 +72,8 @@ class WebList extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-      baseurl: state.baseurl
+      baseurl: state.baseurl,
+      listreload: state.listreload
     }
 }
 WebList = connect(mapStateToProps)(WebList)

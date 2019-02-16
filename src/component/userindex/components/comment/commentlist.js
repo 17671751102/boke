@@ -78,15 +78,13 @@ class CommentList extends React.Component{
             }]
         })
     }
-    
-    
     render(){
         return(
            <List
             className="comment-list"
-            header={`${this.state.data.length} replies`}
+            header={`${this.props.value.length} 留言`}
             itemLayout="horizontal"
-            dataSource={this.state.data}
+            dataSource={this.props.value}
             renderItem={item => (
                 <Comment
                     actions={item.actions}

@@ -11,7 +11,6 @@ import Menu from '@js/userindex/components/menu'
 import Detail from '@js/userindex/components/detail/detail'
 import Notfound from '../../404'
 import Footer from '@js/userindex/components/footer'
-// import Water from '../../water/water'
 class Index extends React.Component {
     constructor(){
         super()
@@ -40,13 +39,11 @@ class Index extends React.Component {
                     aboutme.className='aboutme'
                 }
             }
-            
         }
     }
     render(){
         return(
             <div style={{paddingTop:50}}>
-                {/* <Water/> */}
                 <Menu history={this.props.history}/>
                 <Switch>
                     <Route exact path='/' component={List}/>
@@ -54,11 +51,11 @@ class Index extends React.Component {
                     <Route exact path='/web' component={WebList} />
                     <Route exact path='/bilibili' component={BilibiliList} />
                     <Route exact path='/live' component={LiveList} />
-                    <Route exact path='/index/:id' render={()=><Detail message='首页'/>}/>
-                    <Route exact path='/java/:id' render={()=><Detail message='Java'/>} />
-                    <Route exact path='/web/:id' render={()=><Detail message='Web前端'/>} />
-                    <Route exact path='/bilibili/:id' render={()=><Detail message='动漫'/>} />
-                    <Route exact path='/live/:id' render={()=><Detail message='生活'/>} />
+                    <Route exact path='/index/:id' render={()=><Detail message='首页' paths='/'/>}/>
+                    <Route exact path='/java/:id' render={()=><Detail message='Java' paths='/java'/>} />
+                    <Route exact path='/web/:id' render={()=><Detail message='Web前端' paths='/web'/>} />
+                    <Route exact path='/bilibili/:id' render={()=><Detail message='动漫' paths='/bilibili'/>} />
+                    <Route exact path='/live/:id' render={()=><Detail message='生活' paths='/live'/>} />
                     <Route component={Notfound}/>
                 </Switch>
                 <Footer />

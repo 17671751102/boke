@@ -20,12 +20,14 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>海底兄弟</title>
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
   </head>
   <body>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
     <div id="root"></div>
+    <div style="display:none" id='ywl_hide'></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -36,5 +38,11 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script>
+      
+      var a=document.getElementById('ywl_hide')
+      var b=returnCitySN.cip
+      a.innerHTML=b
+    </script>
   </body>
 </html>

@@ -84,8 +84,8 @@ render() {
         editorContent: html
       })
     }
-    editor.customConfig.uploadImgShowBase64 = true // 使用 base64 保存图片
-    // editor.customConfig.uploadImgServer = this.props.eventleakurl+"/index.php/Index/SecurityNews/upload_news_images", // 上传图片到服务器
+    // editor.customConfig.uploadImgShowBase64 = true // 使用 base64 保存图片
+    editor.customConfig.uploadImgServer = this.props.baseurl+"Blog/fuJianShangChuan.form" // 上传图片到服务器
     editor.customConfig.showLinkImg = false // 隐藏“网络图片”tab
     editor.customConfig.uploadImgMaxLength = 5 // 限制一次最多上传 5 张图片
     editor.customConfig.uploadImgMaxSize = 10 * 1024 * 1024 //限制图片的大小
@@ -126,7 +126,7 @@ render() {
 }
 const mapStateToProps = (state) => {
   return {
-    eventleakurl:state.eventleakurl
+    baseurl:state.baseurl
   }
 }
 Wangeditor = connect(mapStateToProps)(Wangeditor)

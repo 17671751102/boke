@@ -40,7 +40,7 @@ import Delete from '@js/userindex/components/delete';
       })
     }
     componentWillReceiveProps(nextProps){
-      if(this.props.wztitle!=nextProps.wztitle){
+      if(this.props.wztitle!=nextProps.wztitle||this.props.listreload!=nextProps.listreload){
         this.setState({
           bottom: false,
           switch:1
@@ -55,7 +55,7 @@ import Delete from '@js/userindex/components/delete';
         })
       }
       if(this.props.LoadMore!=nextProps.LoadMore){
-        if(nextProps.LoadMore==true){
+        if(nextProps.LoadMore==true&&!this.state.bottom){
           this.onLoadMore()
         }
       }
@@ -131,7 +131,7 @@ import Delete from '@js/userindex/components/delete';
           renderItem={abc => (
             <List.Item actions={[
               <IconText type="like-o" text={abc.zan}/>,
-              <IconText type="message" text="2" />,
+              // <IconText type="message" text="2" />,
               <IconText type="eye" text={abc.see} />,
             ]}
             extra={sessionStorage.getItem('logtoken')?
@@ -140,7 +140,7 @@ import Delete from '@js/userindex/components/delete';
           }>
               <Skeleton avatar title={false} loading={abc.loading} active>
                 <List.Item.Meta
-                  avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                  avatar={<Avatar src={abc.users?abc.users.head:''} />}
                   title={ <Link to={`/index/${abc.wZId}`}>{abc.wZTitle}</Link>}
                   description={abc.WZJJ}
                 />
@@ -155,7 +155,8 @@ import Delete from '@js/userindex/components/delete';
     return {
       baseurl: state.baseurl,
       wztitle:state.wztitle,
-      LoadMore: state.LoadMore
+      LoadMore: state.LoadMore,
+      listreload: state.listreload
     }
   }
   Bannerlist = connect(mapStateToProps)(Bannerlist)

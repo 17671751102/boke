@@ -5,7 +5,6 @@ import Bannerlist from '@js/userindex/components/bannerlist';
 import Aboutme from '@js/userindex/components/aboutme';
 import { connect } from 'react-redux'
 // 用来转换axios参数格式与ajax格式一致
-import qs from 'qs'
 import '@css/list.scss'
 class List extends React.Component {
     componentWillReceiveProps(nextProps){

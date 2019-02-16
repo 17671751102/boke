@@ -15,18 +15,33 @@ class Delete extends React.Component{
         okType: 'danger',
         cancelText: '否',
         onOk:()=>{
-            axios.post(this.props.baseurl+'Blog/deleteWenZhangById.form',qs.stringify({
+            axios.post(this.props.baseurl+'Blog/deleteWenZhang.form',qs.stringify({
                 wZId: this.props.id           
             }))
             .then((json)=>{
-                console.log(json)
+                if(json){
+                    if(json.data[0].status==1){
+                        message.success(json.data[0].message)
+                        this.reloadlist()
+                    }else{
+                        message.error(json.data[0].message)
+                    }
+                }
             },(json)=>{
                 message.error('链接失败')
             })
         },
         onCancel:()=>{
-        console.log('Cancel');
+
         },
+    }
+    reloadlist=()=>{
+        if(this.props.onSwitchColor){
+            let a=this.props.listreload
+            a++
+            this.props.onSwitchColor(a)
+            console.log(this.props.listreload)
+        }
     }
     render(){
         return(
@@ -40,8 +55,16 @@ class Delete extends React.Component{
 }
 const mapStateToProps = (state) => {
     return {
-      baseurl: state.baseurl
+      baseurl: state.baseurl,
+      listreload: state.listreload
     }
 }
-Delete = connect(mapStateToProps)(Delete)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSwitchColor: (a) => {
+            dispatch({ type: 'CHANGE_COLOR', listreload: a })
+        }
+    }
+}
+Delete = connect(mapStateToProps,mapDispatchToProps)(Delete)
 export default Delete;
