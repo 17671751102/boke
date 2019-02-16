@@ -55,7 +55,7 @@ import Delete from '@js/userindex/components/delete';
         })
       }
       if(this.props.LoadMore!=nextProps.LoadMore){
-        if(nextProps.LoadMore==true){
+        if(nextProps.LoadMore==true&&!this.state.bottom){
           this.onLoadMore()
         }
       }
@@ -140,7 +140,7 @@ import Delete from '@js/userindex/components/delete';
           }>
               <Skeleton avatar title={false} loading={abc.loading} active>
                 <List.Item.Meta
-                  avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                  avatar={<Avatar src={abc.users?abc.users.head:''} />}
                   title={ <Link to={`/index/${abc.wZId}`}>{abc.wZTitle}</Link>}
                   description={abc.WZJJ}
                 />

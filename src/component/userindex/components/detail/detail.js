@@ -9,6 +9,7 @@ import '@css/detail.scss'
 import { Row, Col, Icon,message} from 'antd';
 import Biaoqian from '@js/userindex/components/biaoqian'
 import CommentList from '@js/userindex/components/comment/commentlist'
+import Commenttext from '@js/userindex/components/comment/commenttext'
 const IconText = ({ type, text }) => (
     <span>
         <Icon type={type} style={{ marginRight: 8 }} />
@@ -21,28 +22,29 @@ class Detail extends React.Component {
         this.state={
             op:[],
             message:'',
-            status:false,
-            ip:''
+            ip:'',
+            action: localStorage.getItem(window.location.pathname.split('/').pop())?
+                    localStorage.getItem(window.location.pathname.split('/').pop()):false,
+            data:[]
         }
     }
     componentDidMount(){
         this.Loadlist()
     }
     likeClick =(e)=>{
-        axios.post(this.props.baseurl+(this.state.status?'Blog/quXiaodianZanWenZhang.form':
+        let ip=document.getElementById('ywl_hide').innerHTML
+        axios.post(this.props.baseurl+(this.state.action?'Blog/quXiaodianZanWenZhang.form':
         'Blog/dianZanWenZhang.form'),qs.stringify({
           wZId: e,
-          ip:document.getElementById('ywl_hide').innerHTML  
+          ip:ip
         }))
         .then((json)=>{
-            this.setState({status:!this.state.status},()=>{
-                if(this.state.status){
-                    message.success(json.data.state)
-                }else{
-                    message.error(json.data.state)
-                }
+            this.setState({
+                action:!this.state.action
+            },()=>{
                 this.Loadlist()
                 this.reloadlist()
+                localStorage.setItem(e,this.state.action)
             })
         })
     }
@@ -67,7 +69,6 @@ class Detail extends React.Component {
                         <Row>
                             <Col span={24}>
                                 <Biaoqian value={json.data.dqwz.biaoQian}/>
-                                {/* <span><Icon type="menu-fold" style={{paddingRight:'5px'}} />标签：{json.data.dqwz.biaoQian}</span> */}
                             </Col>
                             <Col md={{span:7}} sm={{span:12}}>
                                 <span><Icon style={{paddingRight:'5px'}} type="clock-circle" />{new Date().getFullYear(json.data.dqwz.fBTime.time)+'-'+(json.data.dqwz.fBTime.month+1)+'-'+json.data.dqwz.fBTime.date}</span>
@@ -80,14 +81,20 @@ class Detail extends React.Component {
                             </Col>
                         </Row>
                         <div id='detail_message' className='w-e-text' style={{marginBottom:15}}></div>
-                        <Icon type="like-o"onClick={this.likeClick.bind(this,json.data.dqwz.wZId)} /><span>{json.data.dqwz.zan}</span>
+                        <Icon type="like" 
+                        theme={this.state.action ? 'filled' : 'outlined'}
+                        onClick={this.likeClick.bind(this,json.data.dqwz.wZId)} style={{cursor:'pointer'}} />
+                        <span>{json.data.dqwz.zan}</span>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <Icon type="message"/><span>{json.data.dqlyl.length}</span>
+                        <Icon type="message" 
+                        style={{cursor:'pointer'}}/>
+                        <span>{json.data.dqlyl.length}</span>
                     </div>
                 )
                 this.setState({
                     op:op,
-                    message:json.data.dqwz.wZText
+                    message:json.data.dqwz.wZText,
+                    data:json.data.dqlyl
                 },()=>{
                     var message=document.getElementById('detail_message')
                     message.innerHTML=this.state.message
@@ -114,7 +121,8 @@ class Detail extends React.Component {
                 <Row className="list antd-list">
                     <Col lg={16} md={24} xs={24} className="list_left">
                         {this.state.op}
-                        <CommentList />
+                        <Commenttext/>
+                        <CommentList value={this.state.data}/>
                     </Col>
                     <Col lg={{span:7,offset:1}} md={0} xs={0}>
                         <Aboutme/>

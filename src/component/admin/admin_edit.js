@@ -28,25 +28,22 @@ class Addconsult_new extends React.Component {
         }
     }
     Loadlist=()=>{
-        
         axios.post(this.props.baseurl+'Blog/selectWenZhangById.form',qs.stringify({
             wZId:window.location.pathname.split('/').pop(),
         }))
         .then((json)=>{
             let tags =[];
-            tags =json.data[0].biaoQian.split(',');
-            console.log(tags)
+            tags =json.data.dqwz.biaoQian.split(',');
             const div =document.getElementsByClassName('w-e-text')[0]
-            div.innerHTML=json.data[0].wZText
+            div.innerHTML=json.data.dqwz.wZText
             this.setState({
-                inputValues:json.data[0],
+                inputValues:json.data.dqwz,
                 tags:tags,
-                origin:json.data[0].YC,
+                origin:json.data.dqwz.YC,
                 inputValue:''
             })
         })
     }
-
     // 网站验证
     checkUrl(rule, value, callback){
         var re = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
@@ -84,7 +81,6 @@ class Addconsult_new extends React.Component {
 
         });
     }
-    
     saveInputRef = input => this.input = input
     // 表单提交
     handleSubmit = (e) => {
@@ -148,10 +144,7 @@ class Addconsult_new extends React.Component {
                     )}
                 </FormItem>
                 <FormItem label="资讯标签">
-                   {getFieldDecorator('lable', {
-                        rules: [{ message: ''}],
-                        initialValue:tags
-                    })(
+                   {getFieldDecorator('lable')(
                         <div className="Lable">
                                 {tags.map((tag, index) => {
                                 const isLongTag = tag.length > 8;
