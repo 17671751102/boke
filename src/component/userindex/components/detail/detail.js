@@ -122,7 +122,9 @@ class Detail extends React.Component {
                     <Col lg={16} md={24} xs={24} className="list_left">
                         {this.state.op}
                         <Commenttext/>
-                        <CommentList value={this.state.data}/>
+                        <CommentList value={this.state.data}>
+                            <CommentList value={this.state.data}></CommentList>
+                        </CommentList>
                     </Col>
                     <Col lg={{span:7,offset:1}} md={0} xs={0}>
                         <Aboutme/>

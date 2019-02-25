@@ -1,6 +1,8 @@
 import React from 'react';
 import { Comment, Tooltip, List ,Icon} from 'antd';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import Commenttext from '@js/userindex/components/comment/commenttext'
 class CommentList extends React.Component{
     constructor(){
         super()
@@ -9,6 +11,7 @@ class CommentList extends React.Component{
             likes: 0,
             dislikes: 0,
             action: null,
+            promessage:false
         }
     }
     like = () => {
@@ -32,10 +35,16 @@ class CommentList extends React.Component{
     }
     componentDidMount(){
         this.getData()
+        console.log(this.props)
     }
-
+    handleTogeter=()=>{
+        this.setState({promessage:!this.state.promessage},()=>{
+            this.getData()
+        })
+    }
     getData=()=>{
         const { likes, dislikes, action } = this.state;
+        const value=this.props.value
         this.setState({
             data:[{
                 actions: [
@@ -47,9 +56,7 @@ class CommentList extends React.Component{
                             onClick={this.like}
                         />
                         </Tooltip>
-                        <span style={{ paddingLeft: 8, cursor: 'auto' }}>
-                        {likes}
-                        </span>
+                        <span style={{ paddingLeft: 8, cursor: 'auto' }}>{likes}</span>
                     </span>,
                     <span>
                         <Tooltip title="Dislike">
@@ -63,7 +70,7 @@ class CommentList extends React.Component{
                         {dislikes}
                         </span>
                     </span>,    
-                    <span >Reply to</span>
+                    <span onClick={this.handleTogeter}>留言</span>
             ],
                 author: 'Han Solo',
                 avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
@@ -74,7 +81,7 @@ class CommentList extends React.Component{
                 <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
                     <span>{moment().subtract(1, 'days').fromNow()}</span>
                 </Tooltip>
-                ),
+                )
             }]
         })
     }
@@ -82,9 +89,9 @@ class CommentList extends React.Component{
         return(
            <List
             className="comment-list"
-            header={`${this.props.value.length} 留言`}
+            // header={`${this.props.value.length} 留言`}
             itemLayout="horizontal"
-            dataSource={this.props.value}
+            dataSource={this.state.data}
             renderItem={item => (
                 <Comment
                     actions={item.actions}
@@ -92,10 +99,18 @@ class CommentList extends React.Component{
                     avatar={item.avatar}
                     content={item.content}
                     datetime={item.datetime}
-                />
+                >
+                {this.props.children}
+                </Comment>
             )}
         />
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+      baseurl:state.baseurl
+    }
+}
+CommentList = connect(mapStateToProps)(CommentList)
 export default CommentList;
